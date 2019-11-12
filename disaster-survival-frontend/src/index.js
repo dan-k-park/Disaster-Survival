@@ -19,7 +19,7 @@ const displayGames = (games) => {
   let ul = document.createElement('ul');
   games.forEach(game => {
     let li = document.createElement('li')
-    li.textContent = game.health
+    li.textContent = game.game_name
     ul.appendChild(li)
   })
   gameList.appendChild(ul)

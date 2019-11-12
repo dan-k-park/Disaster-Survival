@@ -833,3 +833,24 @@ Processing by GamesController#index as HTML
 Completed 200 OK in 90ms (Views: 59.0ms | ActiveRecord: 23.7ms | Allocations: 17901)
 
 
+  [1m[36mGame Load (0.7ms)[0m  [1m[34mSELECT "games".* FROM "games" ORDER BY "games"."id" ASC LIMIT $1[0m  [["LIMIT", 1]]
+Started GET "/games" for ::1 at 2019-11-12 11:33:09 -0800
+Processing by GamesController#index as HTML
+  [1m[36mGame Load (1.1ms)[0m  [1m[34mSELECT "games".* FROM "games"[0m
+  ↳ app/controllers/games_controller.rb:4:in `index'
+[active_model_serializers]   [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+[active_model_serializers]   ↳ app/controllers/games_controller.rb:4:in `index'
+[active_model_serializers] Rendered ActiveModel::Serializer::CollectionSerializer with ActiveModelSerializers::Adapter::Attributes (9.59ms)
+Completed 200 OK in 26ms (Views: 20.7ms | ActiveRecord: 1.8ms | Allocations: 13060)
+
+
+Started GET "/games" for ::1 at 2019-11-12 11:33:36 -0800
+Processing by GamesController#index as */*
+  [1m[36mGame Load (1.7ms)[0m  [1m[34mSELECT "games".* FROM "games"[0m
+  ↳ app/controllers/games_controller.rb:4:in `index'
+[active_model_serializers]   [1m[36mUser Load (2.7ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+[active_model_serializers]   ↳ app/controllers/games_controller.rb:4:in `index'
+[active_model_serializers] Rendered ActiveModel::Serializer::CollectionSerializer with ActiveModelSerializers::Adapter::Attributes (8.78ms)
+Completed 200 OK in 16ms (Views: 11.1ms | ActiveRecord: 4.4ms | Allocations: 2439)
+
+
