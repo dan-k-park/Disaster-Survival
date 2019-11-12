@@ -9,12 +9,13 @@ class UsersController < ApplicationController
   end
 
   def new 
-    @user = User.new
+    user = User.new
   end
 
   def create
-    @user = User.(user_params)
-    render :json => @user
+    user = User.new(user_params)
+    user.save
+    render :json => user
   end
 
   # def edit
