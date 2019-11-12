@@ -7,14 +7,4 @@ class DisastersController < ApplicationController
         @disaster = Disaster.find(params[:id])
         render :json => @disaster
       end
-
-      def create
-        @disaster = Disaster.create(disaster_params)
-        end
-
-    private
-
-    def disaster_params
-        require(:disaster).permit(:id, :name, :damage)
-    end
 end
