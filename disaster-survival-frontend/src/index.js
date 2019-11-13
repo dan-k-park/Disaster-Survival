@@ -3,14 +3,13 @@ const USERS_URL = `${BASE_URL}/users`;
 const GAMES_URL = `${BASE_URL}/games`;
 
 document.addEventListener('DOMContentLoaded', () => {
-  addUser();
-  getGames();
+  newUser();
 })
 
-const addUser = () => {
-  let newUserForm = document.getElementById('signup_form')
+const newUser = () => {
+  let signIn = document.getElementById('signin')
 
-  newUserForm.addEventListener('submit', (ev) => {
+  signIn.addEventListener('submit', (ev) => {
     ev.preventDefault();
 
     let newUsername = ev.target.username_input.value;
@@ -25,7 +24,8 @@ const addUser = () => {
         username: newUsername
       })
     })
-    newUserForm.reset();
+    signIn.classList.add('hidden')
+    getGames();
   })
 }
 
@@ -39,7 +39,9 @@ const getGames = () => {
 
 const displayGames = (games) => {
   let gameList = document.getElementById('games')
-  let ul = document.createElement('ul');
+  gameList.classList.remove('hidden')
+  let ul = document.createElement('ul')
+
 
   let gameForm = document.getElementById("new_game_form")
   let game_input = document.getElementById("game_input")

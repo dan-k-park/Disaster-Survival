@@ -1,3 +1,9 @@
 .hidden {
   display: none;
 }
+
+#signin {
+  margin:10%;
+  height:50%;
+  font-size:1.9vw
+}

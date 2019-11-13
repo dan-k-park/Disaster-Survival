@@ -7,23 +7,18 @@
     <script src="./src/index.js"></script>
   </head>
   <body>
-    <div id="games">
+    
+    <form id="signin">
+        <input id="username_input" type="text" name="username" placeholder="Choose Your Username"/>
+        <input type="submit" value="Log In"/>
+    </form>
+
+    <div id="games" class="hidden">
         <form id="new_game_form">
             <input id="game_input" type="text" name="comment" placeholder="Add Game Name"/>
             <input type="submit" id="submit" value="Submit"/>
-          </form>
+        </form>
     </div>
-    <div id="authentication">
 
-      <form id="signin_form" class="hidden">
-          <input id="username_input" type="text" name="username" placeholder="Enter Your Username"/>
-          <input type="submit" value="Submit"/>
-      </form>
-
-      <form id="signup_form">
-          <input id="username_input" type="text" name="username" placeholder="Choose Your Username"/>
-          <input type="submit" value="Submit"/>
-      </form>
-    </div>
   </body>
 </html>
