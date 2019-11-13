@@ -20,6 +20,25 @@ class Game {
     li.textContent = this.name
     ul.appendChild(li)
 
+    /// current game load event
+    li.addEventListener('click', (ev) => {
+      ev.preventDefault()
+      let score = document.getElementById('score')
+      let game_name = document.getElementById('game_name')
+      let health = document.getElementById('health')
+      let turn = document.getElementById('turn')
+      this.clear = () => {
+        score.classList.add('hidden');
+        game_name.classList.add('hidden');
+        health.classList.add('hidden');
+        turn.classList.add('hidden')
+      }
+      game_name.innerHTML = `<h2>Game Name: ${this.name}</h2>`
+      score.innerHTML = `<h2>Score: ${this.score}</h2>`
+      health.innerHTML = `<h2>Health: ${this.health}</h2>`
+      turn.innerHTML = `<h2>Turn: ${this.turn}</h2>`
+    })
+
     let deleteBtn = document.createElement('button');
     deleteBtn.innerText = 'Delete Game';
     li.appendChild(deleteBtn)
