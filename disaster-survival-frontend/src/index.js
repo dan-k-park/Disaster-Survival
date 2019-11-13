@@ -92,6 +92,6 @@ const displayGames = (games) => {
 
     let addedGame = new Game(newGame)
     addedGame.addGame();
-    addedGame.render();
+    
   })
 }
