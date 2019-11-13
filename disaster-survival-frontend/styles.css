@@ -7,3 +7,11 @@
   height:50%;
   font-size:1.9vw
 }
+
+.topright{
+  position:absolute;
+  margin:1%;
+  top:0;
+  right:0;
+  font-size:2vw
+}

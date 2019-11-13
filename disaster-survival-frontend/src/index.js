@@ -24,20 +24,52 @@ const newUser = () => {
         username: newUsername
       })
     })
+    .then(res => res.json())
+    .then(user => {
+      return getGames(user);
+    })
     signIn.classList.add('hidden')
-    getGames();
   })
 }
 
-const getGames = () => {
+const getGames = (user) => {
   fetch(GAMES_URL)
   .then(res => res.json())
   .then(games => {
     displayGames(games);
   })
+  let changeUsernameBtn = document.getElementById('edit_user')
+
+  changeUsernameBtn.addEventListener('click', () => {
+    editUsername(user);
+  })
+}
+
+const editUsername = (user) => {
+  let editUserForm = document.getElementById('update_username')
+  editUserForm.classList.remove('hidden')
+
+  editUserForm.addEventListener('submit', (ev) => {
+    ev.preventDefault();
+
+    let newUsername = ev.target.username_input.value;
+
+    fetch(USERS_URL + `/${user.id}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        Accepts: 'application/json'
+      },
+      body: JSON.stringify({
+        username: newUsername
+      })
+    })
+    editUserForm.classList.add('hidden')
+  })
 }
 
 const displayGames = (games) => {
+
   let gameList = document.getElementById('games')
   gameList.classList.remove('hidden')
   let ul = document.createElement('ul')
