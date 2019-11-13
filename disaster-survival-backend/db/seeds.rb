@@ -25,15 +25,15 @@ Game.create([
 Disaster.create([
   {
     name: 'Hurricane',
-    damage: 3,
+    damage: 30,
     game_id: 1
   }, {
     name: 'Tsunami',
-    damage: 7,
+    damage: 40,
     game_id: 1
   }, {
     name: 'Volcanoes',
-    damage: 6,
+    damage: 20,
     game_id: 1
   },
   {
