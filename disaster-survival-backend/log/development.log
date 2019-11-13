@@ -2824,3 +2824,789 @@ Processing by UsersController#index as HTML
 Completed 200 OK in 4ms (Views: 3.4ms | ActiveRecord: 0.5ms | Allocations: 1354)
 
 
+  [1m[35m (274.5ms)[0m  [1m[35mCREATE DATABASE "disaster_survival_api_development" ENCODING = 'unicode'[0m
+  [1m[35m (274.4ms)[0m  [1m[35mCREATE DATABASE "disaster_survival_api_test" ENCODING = 'unicode'[0m
+  [1m[35m (7.4ms)[0m  [1m[35mCREATE TABLE "schema_migrations" ("version" character varying NOT NULL PRIMARY KEY)[0m
+  [1m[35m (3.9ms)[0m  [1m[35mCREATE TABLE "ar_internal_metadata" ("key" character varying NOT NULL PRIMARY KEY, "value" character varying, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT pg_try_advisory_lock(6978825959941408020)[0m
+  [1m[35m (0.7ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Migrating to CreateUsers (20191112000353)
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (5.9ms)[0m  [1m[35mCREATE TABLE "users" ("id" bigserial primary key, "username" character varying, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[36mprimary::SchemaMigration Create (0.6ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20191112000353"]]
+  [1m[35m (0.6ms)[0m  [1m[35mCOMMIT[0m
+Migrating to CreateGames (20191112000400)
+  [1m[35m (0.4ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (7.3ms)[0m  [1m[35mCREATE TABLE "games" ("id" bigserial primary key, "game_name" character varying, "score" integer, "health" integer, "turn" integer, "status" boolean, "user_id" bigint NOT NULL, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL, CONSTRAINT "fk_rails_de9e6ea7f7"
+FOREIGN KEY ("user_id")
+  REFERENCES "users" ("id")
+)[0m
+  [1m[35m (1.2ms)[0m  [1m[35mCREATE  INDEX  "index_games_on_user_id" ON "games"  ("user_id")[0m
+  [1m[36mprimary::SchemaMigration Create (0.3ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20191112000400"]]
+  [1m[35m (0.6ms)[0m  [1m[35mCOMMIT[0m
+Migrating to CreateDisasters (20191112000424)
+  [1m[35m (0.4ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (6.4ms)[0m  [1m[35mCREATE TABLE "disasters" ("id" bigserial primary key, "name" character varying, "damage" integer, "game_id" bigint NOT NULL, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL, CONSTRAINT "fk_rails_0e5edd95b5"
+FOREIGN KEY ("game_id")
+  REFERENCES "games" ("id")
+)[0m
+  [1m[35m (1.3ms)[0m  [1m[35mCREATE  INDEX  "index_disasters_on_game_id" ON "disasters"  ("game_id")[0m
+  [1m[36mprimary::SchemaMigration Create (0.3ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20191112000424"]]
+  [1m[35m (0.6ms)[0m  [1m[35mCOMMIT[0m
+Migrating to CreateHints (20191112000610)
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (4.8ms)[0m  [1m[35mCREATE TABLE "hints" ("id" bigserial primary key, "content" character varying, "probability" integer, "disaster_id" bigint NOT NULL, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL, CONSTRAINT "fk_rails_279eb73f41"
+FOREIGN KEY ("disaster_id")
+  REFERENCES "disasters" ("id")
+)[0m
+  [1m[35m (2.0ms)[0m  [1m[35mCREATE  INDEX  "index_hints_on_disaster_id" ON "hints"  ("disaster_id")[0m
+  [1m[36mprimary::SchemaMigration Create (0.5ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20191112000610"]]
+  [1m[35m (1.7ms)[0m  [1m[35mCOMMIT[0m
+Migrating to CreateProtections (20191112000921)
+  [1m[35m (1.6ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (12.7ms)[0m  [1m[35mCREATE TABLE "protections" ("id" bigserial primary key, "name" character varying, "price" integer, "buff" integer, "game_id" bigint NOT NULL, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL, CONSTRAINT "fk_rails_1bf807a014"
+FOREIGN KEY ("game_id")
+  REFERENCES "games" ("id")
+)[0m
+  [1m[35m (1.5ms)[0m  [1m[35mCREATE  INDEX  "index_protections_on_game_id" ON "protections"  ("game_id")[0m
+  [1m[36mprimary::SchemaMigration Create (0.5ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20191112000921"]]
+  [1m[35m (0.5ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.9ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mActiveRecord::InternalMetadata Create (1.3ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "key"[0m  [["key", "environment"], ["value", "development"], ["created_at", "2019-11-13 06:50:54.074369"], ["updated_at", "2019-11-13 06:50:54.074369"]]
+  [1m[35m (1.5ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT pg_advisory_unlock(6978825959941408020)[0m
+  [1m[35m (0.9ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.8ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mUser Create (1.4ms)[0m  [1m[32mINSERT INTO "users" ("username", "created_at", "updated_at") VALUES ($1, $2, $3) RETURNING "id"[0m  [["username", "Admin"], ["created_at", "2019-11-13 06:50:55.827519"], ["updated_at", "2019-11-13 06:50:55.827519"]]
+  [1m[35m (0.6ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mGame Create (1.2ms)[0m  [1m[32mINSERT INTO "games" ("game_name", "score", "health", "turn", "status", "user_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING "id"[0m  [["game_name", "Test"], ["score", 1], ["health", 100], ["turn", 1], ["status", true], ["user_id", 1], ["created_at", "2019-11-13 06:50:55.854377"], ["updated_at", "2019-11-13 06:50:55.854377"]]
+  [1m[35m (0.5ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mGame Load (0.3ms)[0m  [1m[34mSELECT "games".* FROM "games" WHERE "games"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mDisaster Create (1.2ms)[0m  [1m[32mINSERT INTO "disasters" ("name", "damage", "game_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["name", "Hurricane"], ["damage", 3], ["game_id", 1], ["created_at", "2019-11-13 06:50:55.874052"], ["updated_at", "2019-11-13 06:50:55.874052"]]
+  [1m[35m (0.6ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mGame Load (0.6ms)[0m  [1m[34mSELECT "games".* FROM "games" WHERE "games"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mDisaster Create (0.8ms)[0m  [1m[32mINSERT INTO "disasters" ("name", "damage", "game_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["name", "Tsunami"], ["damage", 7], ["game_id", 1], ["created_at", "2019-11-13 06:50:55.884871"], ["updated_at", "2019-11-13 06:50:55.884871"]]
+  [1m[35m (0.6ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mGame Load (0.5ms)[0m  [1m[34mSELECT "games".* FROM "games" WHERE "games"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mDisaster Create (0.9ms)[0m  [1m[32mINSERT INTO "disasters" ("name", "damage", "game_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["name", "Volcanoes"], ["damage", 6], ["game_id", 1], ["created_at", "2019-11-13 06:50:55.894034"], ["updated_at", "2019-11-13 06:50:55.894034"]]
+  [1m[35m (0.5ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mGame Load (0.3ms)[0m  [1m[34mSELECT "games".* FROM "games" WHERE "games"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mDisaster Create (0.4ms)[0m  [1m[32mINSERT INTO "disasters" ("name", "damage", "game_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["name", "Squatters"], ["damage", 2], ["game_id", 1], ["created_at", "2019-11-13 06:50:55.900805"], ["updated_at", "2019-11-13 06:50:55.900805"]]
+  [1m[35m (0.5ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mGame Load (0.3ms)[0m  [1m[34mSELECT "games".* FROM "games" WHERE "games"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mProtection Create (1.0ms)[0m  [1m[32mINSERT INTO "protections" ("name", "price", "buff", "game_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["name", "Plywood"], ["price", 20], ["buff", 1], ["game_id", 1], ["created_at", "2019-11-13 06:50:55.918110"], ["updated_at", "2019-11-13 06:50:55.918110"]]
+  [1m[35m (0.4ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mGame Load (0.3ms)[0m  [1m[34mSELECT "games".* FROM "games" WHERE "games"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mProtection Create (0.5ms)[0m  [1m[32mINSERT INTO "protections" ("name", "price", "buff", "game_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["name", "Hurricane Shutters"], ["price", 100], ["buff", 1000], ["game_id", 1], ["created_at", "2019-11-13 06:50:55.924699"], ["updated_at", "2019-11-13 06:50:55.924699"]]
+  [1m[35m (0.5ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mGame Load (0.2ms)[0m  [1m[34mSELECT "games".* FROM "games" WHERE "games"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mProtection Create (0.7ms)[0m  [1m[32mINSERT INTO "protections" ("name", "price", "buff", "game_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["name", "Sandbags"], ["price", 20], ["buff", 1], ["game_id", 1], ["created_at", "2019-11-13 06:50:55.953305"], ["updated_at", "2019-11-13 06:50:55.953305"]]
+  [1m[35m (0.6ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.9ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mGame Load (0.2ms)[0m  [1m[34mSELECT "games".* FROM "games" WHERE "games"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mProtection Create (0.5ms)[0m  [1m[32mINSERT INTO "protections" ("name", "price", "buff", "game_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["name", "Steel Braces + Bolts"], ["price", 1000], ["buff", 10000], ["game_id", 1], ["created_at", "2019-11-13 06:50:55.961671"], ["updated_at", "2019-11-13 06:50:55.961671"]]
+  [1m[35m (0.6ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mGame Load (0.2ms)[0m  [1m[34mSELECT "games".* FROM "games" WHERE "games"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mProtection Create (0.7ms)[0m  [1m[32mINSERT INTO "protections" ("name", "price", "buff", "game_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["name", "Concrete Foundation"], ["price", 100000], ["buff", 200000], ["game_id", 1], ["created_at", "2019-11-13 06:50:55.968374"], ["updated_at", "2019-11-13 06:50:55.968374"]]
+  [1m[35m (0.5ms)[0m  [1m[35mCOMMIT[0m
+Started GET "/games" for ::1 at 2019-11-12 22:51:15 -0800
+  [1m[35m (1.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by GamesController#index as HTML
+  [1m[36mGame Load (0.8ms)[0m  [1m[34mSELECT "games".* FROM "games"[0m
+  ↳ app/controllers/games_controller.rb:4:in `index'
+[active_model_serializers]   [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+[active_model_serializers]   ↳ app/controllers/games_controller.rb:4:in `index'
+[active_model_serializers] Rendered ActiveModel::Serializer::CollectionSerializer with ActiveModelSerializers::Adapter::Attributes (23.06ms)
+Completed 200 OK in 60ms (Views: 39.5ms | ActiveRecord: 16.4ms | Allocations: 18081)
+
+
+Started POST "/users" for ::1 at 2019-11-12 22:51:21 -0800
+Processing by UsersController#create as */*
+  Parameters: {"username"=>"Daniel", "user"=>{"username"=>"Daniel"}}
+  [1m[35m (4.3ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/users_controller.rb:17:in `create'
+  [1m[36mUser Create (0.8ms)[0m  [1m[32mINSERT INTO "users" ("username", "created_at", "updated_at") VALUES ($1, $2, $3) RETURNING "id"[0m  [["username", "Daniel"], ["created_at", "2019-11-13 06:51:21.726682"], ["updated_at", "2019-11-13 06:51:21.726682"]]
+  ↳ app/controllers/users_controller.rb:17:in `create'
+  [1m[35m (0.5ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/users_controller.rb:17:in `create'
+[active_model_serializers] Rendered UserSerializer with ActiveModelSerializers::Adapter::Attributes (0.24ms)
+Completed 200 OK in 24ms (Views: 0.7ms | ActiveRecord: 5.6ms | Allocations: 2653)
+
+
+Started GET "/games" for ::1 at 2019-11-12 22:51:21 -0800
+Processing by GamesController#index as */*
+  [1m[36mGame Load (0.4ms)[0m  [1m[34mSELECT "games".* FROM "games"[0m
+  ↳ app/controllers/games_controller.rb:4:in `index'
+[active_model_serializers]   [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+[active_model_serializers]   ↳ app/controllers/games_controller.rb:4:in `index'
+[active_model_serializers] Rendered ActiveModel::Serializer::CollectionSerializer with ActiveModelSerializers::Adapter::Attributes (2.54ms)
+Completed 200 OK in 5ms (Views: 3.9ms | ActiveRecord: 0.7ms | Allocations: 2420)
+
+
+Started POST "/games" for ::1 at 2019-11-12 22:51:25 -0800
+Processing by GamesController#create as JSON
+  Parameters: {"game_name"=>"New Game", "score"=>0, "user_id"=>1, "health"=>100, "turn"=>1, "status"=>true, "game"=>{"game_name"=>"New Game", "score"=>0, "health"=>100, "turn"=>1, "status"=>true, "user_id"=>1}}
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/games_controller.rb:18:in `create'
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/games_controller.rb:18:in `create'
+  [1m[36mGame Create (1.0ms)[0m  [1m[32mINSERT INTO "games" ("game_name", "score", "health", "turn", "status", "user_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING "id"[0m  [["game_name", "New Game"], ["score", 0], ["health", 100], ["turn", 1], ["status", true], ["user_id", 1], ["created_at", "2019-11-13 06:51:25.951981"], ["updated_at", "2019-11-13 06:51:25.951981"]]
+  ↳ app/controllers/games_controller.rb:18:in `create'
+  [1m[35m (0.6ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/games_controller.rb:18:in `create'
+[active_model_serializers] Rendered GameSerializer with ActiveModelSerializers::Adapter::Attributes (1.38ms)
+Completed 200 OK in 12ms (Views: 2.3ms | ActiveRecord: 2.3ms | Allocations: 3919)
+
+
+Started GET "/games" for ::1 at 2019-11-12 22:51:27 -0800
+Processing by GamesController#index as HTML
+  [1m[36mGame Load (0.6ms)[0m  [1m[34mSELECT "games".* FROM "games"[0m
+  ↳ app/controllers/games_controller.rb:4:in `index'
+[active_model_serializers]   [1m[36mUser Load (1.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+[active_model_serializers]   ↳ app/controllers/games_controller.rb:4:in `index'
+[active_model_serializers]   [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+[active_model_serializers]   ↳ app/controllers/games_controller.rb:4:in `index'
+[active_model_serializers] Rendered ActiveModel::Serializer::CollectionSerializer with ActiveModelSerializers::Adapter::Attributes (7.29ms)
+Completed 200 OK in 11ms (Views: 8.8ms | ActiveRecord: 1.7ms | Allocations: 3823)
+
+
+Started DELETE "/games/undefined" for ::1 at 2019-11-12 22:51:29 -0800
+Processing by GamesController#destroy as */*
+  Parameters: {"id"=>"undefined"}
+  [1m[36mGame Load (0.3ms)[0m  [1m[34mSELECT "games".* FROM "games" WHERE "games"."id" = $1 LIMIT $2[0m  [["id", nil], ["LIMIT", 1]]
+  ↳ app/controllers/games_controller.rb:23:in `destroy'
+Completed 404 Not Found in 2ms (ActiveRecord: 0.3ms | Allocations: 721)
+
+
+  
+ActiveRecord::RecordNotFound (Couldn't find Game with 'id'=undefined):
+  
+app/controllers/games_controller.rb:23:in `destroy'
+Started GET "/games" for ::1 at 2019-11-12 22:51:30 -0800
+Processing by GamesController#index as HTML
+  [1m[36mGame Load (1.3ms)[0m  [1m[34mSELECT "games".* FROM "games"[0m
+  ↳ app/controllers/games_controller.rb:4:in `index'
+[active_model_serializers]   [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+[active_model_serializers]   ↳ app/controllers/games_controller.rb:4:in `index'
+[active_model_serializers]   [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+[active_model_serializers]   ↳ app/controllers/games_controller.rb:4:in `index'
+[active_model_serializers] Rendered ActiveModel::Serializer::CollectionSerializer with ActiveModelSerializers::Adapter::Attributes (8.77ms)
+Completed 200 OK in 13ms (Views: 10.9ms | ActiveRecord: 1.8ms | Allocations: 3800)
+
+
+Started GET "/games" for ::1 at 2019-11-12 22:51:31 -0800
+Processing by GamesController#index as HTML
+  [1m[36mGame Load (0.5ms)[0m  [1m[34mSELECT "games".* FROM "games"[0m
+  ↳ app/controllers/games_controller.rb:4:in `index'
+[active_model_serializers]   [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+[active_model_serializers]   ↳ app/controllers/games_controller.rb:4:in `index'
+[active_model_serializers]   [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+[active_model_serializers]   ↳ app/controllers/games_controller.rb:4:in `index'
+[active_model_serializers] Rendered ActiveModel::Serializer::CollectionSerializer with ActiveModelSerializers::Adapter::Attributes (8.72ms)
+Completed 200 OK in 12ms (Views: 10.8ms | ActiveRecord: 1.1ms | Allocations: 3801)
+
+
+Started GET "/games" for ::1 at 2019-11-12 22:51:32 -0800
+Processing by GamesController#index as HTML
+  [1m[36mGame Load (0.6ms)[0m  [1m[34mSELECT "games".* FROM "games"[0m
+  ↳ app/controllers/games_controller.rb:4:in `index'
+[active_model_serializers]   [1m[36mUser Load (0.9ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+[active_model_serializers]   ↳ app/controllers/games_controller.rb:4:in `index'
+[active_model_serializers]   [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+[active_model_serializers]   ↳ app/controllers/games_controller.rb:4:in `index'
+[active_model_serializers] Rendered ActiveModel::Serializer::CollectionSerializer with ActiveModelSerializers::Adapter::Attributes (7.05ms)
+Completed 200 OK in 11ms (Views: 9.4ms | ActiveRecord: 1.5ms | Allocations: 3822)
+
+
+Started GET "/games" for ::1 at 2019-11-12 22:51:33 -0800
+Processing by GamesController#index as HTML
+  [1m[36mGame Load (0.5ms)[0m  [1m[34mSELECT "games".* FROM "games"[0m
+  ↳ app/controllers/games_controller.rb:4:in `index'
+[active_model_serializers]   [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+[active_model_serializers]   ↳ app/controllers/games_controller.rb:4:in `index'
+[active_model_serializers]   [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+[active_model_serializers]   ↳ app/controllers/games_controller.rb:4:in `index'
+[active_model_serializers] Rendered ActiveModel::Serializer::CollectionSerializer with ActiveModelSerializers::Adapter::Attributes (5.84ms)
+Completed 200 OK in 9ms (Views: 8.1ms | ActiveRecord: 0.8ms | Allocations: 3801)
+
+
+Started GET "/games" for ::1 at 2019-11-12 22:51:33 -0800
+Processing by GamesController#index as HTML
+  [1m[36mGame Load (0.5ms)[0m  [1m[34mSELECT "games".* FROM "games"[0m
+  ↳ app/controllers/games_controller.rb:4:in `index'
+[active_model_serializers]   [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+[active_model_serializers]   ↳ app/controllers/games_controller.rb:4:in `index'
+[active_model_serializers]   [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+[active_model_serializers]   ↳ app/controllers/games_controller.rb:4:in `index'
+[active_model_serializers] Rendered ActiveModel::Serializer::CollectionSerializer with ActiveModelSerializers::Adapter::Attributes (6.51ms)
+Completed 200 OK in 10ms (Views: 8.8ms | ActiveRecord: 0.8ms | Allocations: 3801)
+
+
+Started GET "/games" for ::1 at 2019-11-12 22:51:35 -0800
+Processing by GamesController#index as HTML
+  [1m[36mGame Load (0.6ms)[0m  [1m[34mSELECT "games".* FROM "games"[0m
+  ↳ app/controllers/games_controller.rb:4:in `index'
+[active_model_serializers]   [1m[36mUser Load (0.6ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+[active_model_serializers]   ↳ app/controllers/games_controller.rb:4:in `index'
+[active_model_serializers]   [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+[active_model_serializers]   ↳ app/controllers/games_controller.rb:4:in `index'
+[active_model_serializers] Rendered ActiveModel::Serializer::CollectionSerializer with ActiveModelSerializers::Adapter::Attributes (6.06ms)
+Completed 200 OK in 10ms (Views: 8.5ms | ActiveRecord: 1.2ms | Allocations: 3801)
+
+
+Started GET "/games" for ::1 at 2019-11-12 22:51:59 -0800
+Processing by GamesController#index as HTML
+  [1m[36mGame Load (0.5ms)[0m  [1m[34mSELECT "games".* FROM "games"[0m
+  ↳ app/controllers/games_controller.rb:4:in `index'
+[active_model_serializers]   [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+[active_model_serializers]   ↳ app/controllers/games_controller.rb:4:in `index'
+[active_model_serializers]   [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+[active_model_serializers]   ↳ app/controllers/games_controller.rb:4:in `index'
+[active_model_serializers] Rendered ActiveModel::Serializer::CollectionSerializer with ActiveModelSerializers::Adapter::Attributes (5.74ms)
+Completed 200 OK in 9ms (Views: 7.7ms | ActiveRecord: 0.8ms | Allocations: 3801)
+
+
+Started POST "/games" for ::1 at 2019-11-12 22:52:01 -0800
+Processing by GamesController#create as JSON
+  Parameters: {"game_name"=>"New Game", "score"=>0, "user_id"=>1, "health"=>100, "turn"=>1, "status"=>true, "game"=>{"game_name"=>"New Game", "score"=>0, "health"=>100, "turn"=>1, "status"=>true, "user_id"=>1}}
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/games_controller.rb:18:in `create'
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/games_controller.rb:18:in `create'
+  [1m[36mGame Create (0.8ms)[0m  [1m[32mINSERT INTO "games" ("game_name", "score", "health", "turn", "status", "user_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING "id"[0m  [["game_name", "New Game"], ["score", 0], ["health", 100], ["turn", 1], ["status", true], ["user_id", 1], ["created_at", "2019-11-13 06:52:01.079944"], ["updated_at", "2019-11-13 06:52:01.079944"]]
+  ↳ app/controllers/games_controller.rb:18:in `create'
+  [1m[35m (0.9ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/games_controller.rb:18:in `create'
+[active_model_serializers] Rendered GameSerializer with ActiveModelSerializers::Adapter::Attributes (0.65ms)
+Completed 200 OK in 11ms (Views: 1.3ms | ActiveRecord: 2.3ms | Allocations: 3752)
+
+
+Started GET "/games" for ::1 at 2019-11-12 22:52:02 -0800
+Processing by GamesController#index as HTML
+  [1m[36mGame Load (0.5ms)[0m  [1m[34mSELECT "games".* FROM "games"[0m
+  ↳ app/controllers/games_controller.rb:4:in `index'
+[active_model_serializers]   [1m[36mUser Load (2.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+[active_model_serializers]   ↳ app/controllers/games_controller.rb:4:in `index'
+[active_model_serializers]   [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+[active_model_serializers]   ↳ app/controllers/games_controller.rb:4:in `index'
+[active_model_serializers]   [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+[active_model_serializers]   ↳ app/controllers/games_controller.rb:4:in `index'
+[active_model_serializers] Rendered ActiveModel::Serializer::CollectionSerializer with ActiveModelSerializers::Adapter::Attributes (12.44ms)
+Completed 200 OK in 16ms (Views: 12.7ms | ActiveRecord: 2.8ms | Allocations: 5186)
+
+
+Started DELETE "/games/undefined" for ::1 at 2019-11-12 22:52:06 -0800
+Processing by GamesController#destroy as */*
+  Parameters: {"id"=>"undefined"}
+  [1m[36mGame Load (0.5ms)[0m  [1m[34mSELECT "games".* FROM "games" WHERE "games"."id" = $1 LIMIT $2[0m  [["id", nil], ["LIMIT", 1]]
+  ↳ app/controllers/games_controller.rb:23:in `destroy'
+Completed 404 Not Found in 2ms (ActiveRecord: 0.5ms | Allocations: 604)
+
+
+  
+ActiveRecord::RecordNotFound (Couldn't find Game with 'id'=undefined):
+  
+app/controllers/games_controller.rb:23:in `destroy'
+Started GET "/games" for ::1 at 2019-11-12 22:52:07 -0800
+Processing by GamesController#index as HTML
+  [1m[36mGame Load (0.5ms)[0m  [1m[34mSELECT "games".* FROM "games"[0m
+  ↳ app/controllers/games_controller.rb:4:in `index'
+[active_model_serializers]   [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+[active_model_serializers]   ↳ app/controllers/games_controller.rb:4:in `index'
+[active_model_serializers]   [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+[active_model_serializers]   ↳ app/controllers/games_controller.rb:4:in `index'
+[active_model_serializers]   [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+[active_model_serializers]   ↳ app/controllers/games_controller.rb:4:in `index'
+[active_model_serializers] Rendered ActiveModel::Serializer::CollectionSerializer with ActiveModelSerializers::Adapter::Attributes (8.08ms)
+Completed 200 OK in 11ms (Views: 9.7ms | ActiveRecord: 0.8ms | Allocations: 5185)
+
+
+Started GET "/games" for ::1 at 2019-11-12 22:53:11 -0800
+Processing by GamesController#index as HTML
+  [1m[36mGame Load (0.6ms)[0m  [1m[34mSELECT "games".* FROM "games"[0m
+  ↳ app/controllers/games_controller.rb:4:in `index'
+[active_model_serializers]   [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+[active_model_serializers]   ↳ app/controllers/games_controller.rb:4:in `index'
+[active_model_serializers]   [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+[active_model_serializers]   ↳ app/controllers/games_controller.rb:4:in `index'
+[active_model_serializers]   [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+[active_model_serializers]   ↳ app/controllers/games_controller.rb:4:in `index'
+[active_model_serializers] Rendered ActiveModel::Serializer::CollectionSerializer with ActiveModelSerializers::Adapter::Attributes (24.21ms)
+Completed 200 OK in 29ms (Views: 27.7ms | ActiveRecord: 1.1ms | Allocations: 5189)
+
+
+Started POST "/games" for ::1 at 2019-11-12 22:53:12 -0800
+Processing by GamesController#create as JSON
+  Parameters: {"game_name"=>"New Game", "score"=>0, "user_id"=>1, "health"=>100, "turn"=>1, "status"=>true, "game"=>{"game_name"=>"New Game", "score"=>0, "health"=>100, "turn"=>1, "status"=>true, "user_id"=>1}}
+  [1m[35m (0.4ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/games_controller.rb:18:in `create'
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/games_controller.rb:18:in `create'
+  [1m[36mGame Create (0.8ms)[0m  [1m[32mINSERT INTO "games" ("game_name", "score", "health", "turn", "status", "user_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING "id"[0m  [["game_name", "New Game"], ["score", 0], ["health", 100], ["turn", 1], ["status", true], ["user_id", 1], ["created_at", "2019-11-13 06:53:12.793081"], ["updated_at", "2019-11-13 06:53:12.793081"]]
+  ↳ app/controllers/games_controller.rb:18:in `create'
+  [1m[35m (0.9ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/games_controller.rb:18:in `create'
+[active_model_serializers] Rendered GameSerializer with ActiveModelSerializers::Adapter::Attributes (0.57ms)
+Completed 200 OK in 11ms (Views: 1.1ms | ActiveRecord: 2.4ms | Allocations: 3752)
+
+
+Started POST "/users" for ::1 at 2019-11-12 22:53:14 -0800
+Processing by UsersController#create as */*
+  Parameters: {"username"=>"", "user"=>{"username"=>""}}
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/users_controller.rb:17:in `create'
+  [1m[36mUser Create (0.6ms)[0m  [1m[32mINSERT INTO "users" ("username", "created_at", "updated_at") VALUES ($1, $2, $3) RETURNING "id"[0m  [["username", ""], ["created_at", "2019-11-13 06:53:14.903907"], ["updated_at", "2019-11-13 06:53:14.903907"]]
+  ↳ app/controllers/users_controller.rb:17:in `create'
+  [1m[35m (0.9ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/users_controller.rb:17:in `create'
+[active_model_serializers] Rendered UserSerializer with ActiveModelSerializers::Adapter::Attributes (0.29ms)
+Completed 200 OK in 9ms (Views: 0.9ms | ActiveRecord: 1.7ms | Allocations: 2333)
+
+
+Started GET "/games" for ::1 at 2019-11-12 22:53:14 -0800
+Processing by GamesController#index as */*
+  [1m[36mGame Load (0.6ms)[0m  [1m[34mSELECT "games".* FROM "games"[0m
+  ↳ app/controllers/games_controller.rb:4:in `index'
+[active_model_serializers]   [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+[active_model_serializers]   ↳ app/controllers/games_controller.rb:4:in `index'
+[active_model_serializers]   [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+[active_model_serializers]   ↳ app/controllers/games_controller.rb:4:in `index'
+[active_model_serializers]   [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+[active_model_serializers]   ↳ app/controllers/games_controller.rb:4:in `index'
+[active_model_serializers]   [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+[active_model_serializers]   ↳ app/controllers/games_controller.rb:4:in `index'
+[active_model_serializers] Rendered ActiveModel::Serializer::CollectionSerializer with ActiveModelSerializers::Adapter::Attributes (10.28ms)
+Completed 200 OK in 14ms (Views: 12.4ms | ActiveRecord: 1.0ms | Allocations: 6574)
+
+
+Started POST "/users" for ::1 at 2019-11-12 22:53:16 -0800
+Processing by UsersController#create as */*
+  Parameters: {"username"=>"", "user"=>{"username"=>""}}
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/users_controller.rb:17:in `create'
+  [1m[36mUser Create (1.1ms)[0m  [1m[32mINSERT INTO "users" ("username", "created_at", "updated_at") VALUES ($1, $2, $3) RETURNING "id"[0m  [["username", ""], ["created_at", "2019-11-13 06:53:16.731798"], ["updated_at", "2019-11-13 06:53:16.731798"]]
+  ↳ app/controllers/users_controller.rb:17:in `create'
+  [1m[35m (0.6ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/users_controller.rb:17:in `create'
+[active_model_serializers] Rendered UserSerializer with ActiveModelSerializers::Adapter::Attributes (0.31ms)
+Completed 200 OK in 7ms (Views: 0.9ms | ActiveRecord: 1.8ms | Allocations: 2333)
+
+
+Started GET "/games" for ::1 at 2019-11-12 22:53:16 -0800
+Processing by GamesController#index as */*
+  [1m[36mGame Load (0.4ms)[0m  [1m[34mSELECT "games".* FROM "games"[0m
+  ↳ app/controllers/games_controller.rb:4:in `index'
+[active_model_serializers]   [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+[active_model_serializers]   ↳ app/controllers/games_controller.rb:4:in `index'
+[active_model_serializers]   [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+[active_model_serializers]   ↳ app/controllers/games_controller.rb:4:in `index'
+[active_model_serializers]   [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+[active_model_serializers]   ↳ app/controllers/games_controller.rb:4:in `index'
+[active_model_serializers]   [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+[active_model_serializers]   ↳ app/controllers/games_controller.rb:4:in `index'
+[active_model_serializers] Rendered ActiveModel::Serializer::CollectionSerializer with ActiveModelSerializers::Adapter::Attributes (9.61ms)
+Completed 200 OK in 12ms (Views: 11.3ms | ActiveRecord: 0.7ms | Allocations: 6574)
+
+
+Started DELETE "/games/4" for ::1 at 2019-11-12 22:53:17 -0800
+Processing by GamesController#destroy as */*
+  Parameters: {"id"=>"4"}
+  [1m[36mGame Load (0.4ms)[0m  [1m[34mSELECT "games".* FROM "games" WHERE "games"."id" = $1 LIMIT $2[0m  [["id", 4], ["LIMIT", 1]]
+  ↳ app/controllers/games_controller.rb:23:in `destroy'
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/games_controller.rb:24:in `destroy'
+  [1m[36mDisaster Load (0.6ms)[0m  [1m[34mSELECT "disasters".* FROM "disasters" WHERE "disasters"."game_id" = $1[0m  [["game_id", 4]]
+  ↳ app/controllers/games_controller.rb:24:in `destroy'
+  [1m[36mProtection Load (0.6ms)[0m  [1m[34mSELECT "protections".* FROM "protections" WHERE "protections"."game_id" = $1[0m  [["game_id", 4]]
+  ↳ app/controllers/games_controller.rb:24:in `destroy'
+  [1m[36mGame Destroy (1.1ms)[0m  [1m[31mDELETE FROM "games" WHERE "games"."id" = $1[0m  [["id", 4]]
+  ↳ app/controllers/games_controller.rb:24:in `destroy'
+  [1m[35m (0.9ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/games_controller.rb:24:in `destroy'
+Completed 204 No Content in 32ms (ActiveRecord: 8.9ms | Allocations: 8989)
+
+
+Started GET "/games" for ::1 at 2019-11-12 22:53:18 -0800
+Processing by GamesController#index as HTML
+  [1m[36mGame Load (0.6ms)[0m  [1m[34mSELECT "games".* FROM "games"[0m
+  ↳ app/controllers/games_controller.rb:4:in `index'
+[active_model_serializers]   [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+[active_model_serializers]   ↳ app/controllers/games_controller.rb:4:in `index'
+[active_model_serializers]   [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+[active_model_serializers]   ↳ app/controllers/games_controller.rb:4:in `index'
+[active_model_serializers]   [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+[active_model_serializers]   ↳ app/controllers/games_controller.rb:4:in `index'
+[active_model_serializers] Rendered ActiveModel::Serializer::CollectionSerializer with ActiveModelSerializers::Adapter::Attributes (9.33ms)
+Completed 200 OK in 14ms (Views: 11.8ms | ActiveRecord: 1.1ms | Allocations: 5186)
+
+
+Started DELETE "/games/3" for ::1 at 2019-11-12 22:53:21 -0800
+Processing by GamesController#destroy as */*
+  Parameters: {"id"=>"3"}
+  [1m[36mGame Load (0.4ms)[0m  [1m[34mSELECT "games".* FROM "games" WHERE "games"."id" = $1 LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  ↳ app/controllers/games_controller.rb:23:in `destroy'
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/games_controller.rb:24:in `destroy'
+  [1m[36mDisaster Load (0.5ms)[0m  [1m[34mSELECT "disasters".* FROM "disasters" WHERE "disasters"."game_id" = $1[0m  [["game_id", 3]]
+  ↳ app/controllers/games_controller.rb:24:in `destroy'
+  [1m[36mProtection Load (0.3ms)[0m  [1m[34mSELECT "protections".* FROM "protections" WHERE "protections"."game_id" = $1[0m  [["game_id", 3]]
+  ↳ app/controllers/games_controller.rb:24:in `destroy'
+  [1m[36mGame Destroy (1.5ms)[0m  [1m[31mDELETE FROM "games" WHERE "games"."id" = $1[0m  [["id", 3]]
+  ↳ app/controllers/games_controller.rb:24:in `destroy'
+  [1m[35m (1.2ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/games_controller.rb:24:in `destroy'
+Completed 204 No Content in 14ms (ActiveRecord: 4.2ms | Allocations: 3980)
+
+
+Started GET "/games" for ::1 at 2019-11-12 22:53:23 -0800
+Processing by GamesController#index as HTML
+  [1m[36mGame Load (0.4ms)[0m  [1m[34mSELECT "games".* FROM "games"[0m
+  ↳ app/controllers/games_controller.rb:4:in `index'
+[active_model_serializers]   [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+[active_model_serializers]   ↳ app/controllers/games_controller.rb:4:in `index'
+[active_model_serializers]   [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+[active_model_serializers]   ↳ app/controllers/games_controller.rb:4:in `index'
+[active_model_serializers] Rendered ActiveModel::Serializer::CollectionSerializer with ActiveModelSerializers::Adapter::Attributes (6.15ms)
+Completed 200 OK in 9ms (Views: 7.9ms | ActiveRecord: 0.8ms | Allocations: 3801)
+
+
+Started POST "/users" for ::1 at 2019-11-12 22:53:29 -0800
+Processing by UsersController#create as */*
+  Parameters: {"username"=>"", "user"=>{"username"=>""}}
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/users_controller.rb:17:in `create'
+  [1m[36mUser Create (0.5ms)[0m  [1m[32mINSERT INTO "users" ("username", "created_at", "updated_at") VALUES ($1, $2, $3) RETURNING "id"[0m  [["username", ""], ["created_at", "2019-11-13 06:53:29.326339"], ["updated_at", "2019-11-13 06:53:29.326339"]]
+  ↳ app/controllers/users_controller.rb:17:in `create'
+  [1m[35m (1.0ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/users_controller.rb:17:in `create'
+[active_model_serializers] Rendered UserSerializer with ActiveModelSerializers::Adapter::Attributes (0.27ms)
+Completed 200 OK in 7ms (Views: 0.8ms | ActiveRecord: 1.7ms | Allocations: 2335)
+
+
+Started GET "/games" for ::1 at 2019-11-12 22:53:29 -0800
+Processing by GamesController#index as */*
+  [1m[36mGame Load (0.5ms)[0m  [1m[34mSELECT "games".* FROM "games"[0m
+  ↳ app/controllers/games_controller.rb:4:in `index'
+[active_model_serializers]   [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+[active_model_serializers]   ↳ app/controllers/games_controller.rb:4:in `index'
+[active_model_serializers]   [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+[active_model_serializers]   ↳ app/controllers/games_controller.rb:4:in `index'
+[active_model_serializers] Rendered ActiveModel::Serializer::CollectionSerializer with ActiveModelSerializers::Adapter::Attributes (5.62ms)
+Completed 200 OK in 9ms (Views: 7.6ms | ActiveRecord: 0.8ms | Allocations: 3803)
+
+
+Started POST "/games" for ::1 at 2019-11-12 22:53:43 -0800
+Processing by GamesController#create as JSON
+  Parameters: {"game_name"=>"Does this work", "score"=>0, "user_id"=>1, "health"=>100, "turn"=>1, "status"=>true, "game"=>{"game_name"=>"Does this work", "score"=>0, "health"=>100, "turn"=>1, "status"=>true, "user_id"=>1}}
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/games_controller.rb:18:in `create'
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/games_controller.rb:18:in `create'
+  [1m[36mGame Create (1.0ms)[0m  [1m[32mINSERT INTO "games" ("game_name", "score", "health", "turn", "status", "user_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING "id"[0m  [["game_name", "Does this work"], ["score", 0], ["health", 100], ["turn", 1], ["status", true], ["user_id", 1], ["created_at", "2019-11-13 06:53:43.855726"], ["updated_at", "2019-11-13 06:53:43.855726"]]
+  ↳ app/controllers/games_controller.rb:18:in `create'
+  [1m[35m (0.6ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/games_controller.rb:18:in `create'
+[active_model_serializers] Rendered GameSerializer with ActiveModelSerializers::Adapter::Attributes (0.72ms)
+Completed 200 OK in 9ms (Views: 1.3ms | ActiveRecord: 2.0ms | Allocations: 3750)
+
+
+Started POST "/users" for ::1 at 2019-11-12 22:53:52 -0800
+Processing by UsersController#create as */*
+  Parameters: {"username"=>"", "user"=>{"username"=>""}}
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/users_controller.rb:17:in `create'
+  [1m[36mUser Create (0.6ms)[0m  [1m[32mINSERT INTO "users" ("username", "created_at", "updated_at") VALUES ($1, $2, $3) RETURNING "id"[0m  [["username", ""], ["created_at", "2019-11-13 06:53:52.216562"], ["updated_at", "2019-11-13 06:53:52.216562"]]
+  ↳ app/controllers/users_controller.rb:17:in `create'
+  [1m[35m (0.8ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/users_controller.rb:17:in `create'
+[active_model_serializers] Rendered UserSerializer with ActiveModelSerializers::Adapter::Attributes (0.27ms)
+Completed 200 OK in 8ms (Views: 0.8ms | ActiveRecord: 1.8ms | Allocations: 2333)
+
+
+Started GET "/games" for ::1 at 2019-11-12 22:53:52 -0800
+Processing by GamesController#index as */*
+  [1m[36mGame Load (0.6ms)[0m  [1m[34mSELECT "games".* FROM "games"[0m
+  ↳ app/controllers/games_controller.rb:4:in `index'
+[active_model_serializers]   [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+[active_model_serializers]   ↳ app/controllers/games_controller.rb:4:in `index'
+[active_model_serializers]   [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+[active_model_serializers]   ↳ app/controllers/games_controller.rb:4:in `index'
+[active_model_serializers]   [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+[active_model_serializers]   ↳ app/controllers/games_controller.rb:4:in `index'
+[active_model_serializers] Rendered ActiveModel::Serializer::CollectionSerializer with ActiveModelSerializers::Adapter::Attributes (7.84ms)
+Completed 200 OK in 11ms (Views: 9.5ms | ActiveRecord: 1.0ms | Allocations: 5188)
+
+
+Started GET "/games" for ::1 at 2019-11-12 22:53:54 -0800
+Processing by GamesController#index as HTML
+  [1m[36mGame Load (0.6ms)[0m  [1m[34mSELECT "games".* FROM "games"[0m
+  ↳ app/controllers/games_controller.rb:4:in `index'
+[active_model_serializers]   [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+[active_model_serializers]   ↳ app/controllers/games_controller.rb:4:in `index'
+[active_model_serializers]   [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+[active_model_serializers]   ↳ app/controllers/games_controller.rb:4:in `index'
+[active_model_serializers]   [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+[active_model_serializers]   ↳ app/controllers/games_controller.rb:4:in `index'
+[active_model_serializers] Rendered ActiveModel::Serializer::CollectionSerializer with ActiveModelSerializers::Adapter::Attributes (7.03ms)
+Completed 200 OK in 12ms (Views: 10.7ms | ActiveRecord: 0.9ms | Allocations: 5186)
+
+
+Started DELETE "/games/1" for ::1 at 2019-11-12 22:53:57 -0800
+Processing by GamesController#destroy as */*
+  Parameters: {"id"=>"1"}
+  [1m[36mGame Load (0.4ms)[0m  [1m[34mSELECT "games".* FROM "games" WHERE "games"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/games_controller.rb:23:in `destroy'
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/games_controller.rb:24:in `destroy'
+  [1m[36mDisaster Load (0.6ms)[0m  [1m[34mSELECT "disasters".* FROM "disasters" WHERE "disasters"."game_id" = $1[0m  [["game_id", 1]]
+  ↳ app/controllers/games_controller.rb:24:in `destroy'
+  [1m[36mDisaster Destroy (1.4ms)[0m  [1m[31mDELETE FROM "disasters" WHERE "disasters"."id" = $1[0m  [["id", 1]]
+  ↳ app/controllers/games_controller.rb:24:in `destroy'
+  [1m[36mDisaster Destroy (0.6ms)[0m  [1m[31mDELETE FROM "disasters" WHERE "disasters"."id" = $1[0m  [["id", 2]]
+  ↳ app/controllers/games_controller.rb:24:in `destroy'
+  [1m[36mDisaster Destroy (0.8ms)[0m  [1m[31mDELETE FROM "disasters" WHERE "disasters"."id" = $1[0m  [["id", 3]]
+  ↳ app/controllers/games_controller.rb:24:in `destroy'
+  [1m[36mDisaster Destroy (0.7ms)[0m  [1m[31mDELETE FROM "disasters" WHERE "disasters"."id" = $1[0m  [["id", 4]]
+  ↳ app/controllers/games_controller.rb:24:in `destroy'
+  [1m[36mProtection Load (0.4ms)[0m  [1m[34mSELECT "protections".* FROM "protections" WHERE "protections"."game_id" = $1[0m  [["game_id", 1]]
+  ↳ app/controllers/games_controller.rb:24:in `destroy'
+  [1m[36mProtection Destroy (0.4ms)[0m  [1m[31mDELETE FROM "protections" WHERE "protections"."id" = $1[0m  [["id", 1]]
+  ↳ app/controllers/games_controller.rb:24:in `destroy'
+  [1m[36mProtection Destroy (0.3ms)[0m  [1m[31mDELETE FROM "protections" WHERE "protections"."id" = $1[0m  [["id", 2]]
+  ↳ app/controllers/games_controller.rb:24:in `destroy'
+  [1m[36mProtection Destroy (0.3ms)[0m  [1m[31mDELETE FROM "protections" WHERE "protections"."id" = $1[0m  [["id", 3]]
+  ↳ app/controllers/games_controller.rb:24:in `destroy'
+  [1m[36mProtection Destroy (0.3ms)[0m  [1m[31mDELETE FROM "protections" WHERE "protections"."id" = $1[0m  [["id", 4]]
+  ↳ app/controllers/games_controller.rb:24:in `destroy'
+  [1m[36mProtection Destroy (0.4ms)[0m  [1m[31mDELETE FROM "protections" WHERE "protections"."id" = $1[0m  [["id", 5]]
+  ↳ app/controllers/games_controller.rb:24:in `destroy'
+  [1m[36mGame Destroy (0.7ms)[0m  [1m[31mDELETE FROM "games" WHERE "games"."id" = $1[0m  [["id", 1]]
+  ↳ app/controllers/games_controller.rb:24:in `destroy'
+  [1m[35m (0.5ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/games_controller.rb:24:in `destroy'
+Completed 204 No Content in 57ms (ActiveRecord: 14.3ms | Allocations: 19480)
+
+
+Started POST "/users" for ::1 at 2019-11-12 22:53:59 -0800
+Processing by UsersController#create as */*
+  Parameters: {"username"=>"", "user"=>{"username"=>""}}
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/users_controller.rb:17:in `create'
+  [1m[36mUser Create (0.9ms)[0m  [1m[32mINSERT INTO "users" ("username", "created_at", "updated_at") VALUES ($1, $2, $3) RETURNING "id"[0m  [["username", ""], ["created_at", "2019-11-13 06:53:59.793461"], ["updated_at", "2019-11-13 06:53:59.793461"]]
+  ↳ app/controllers/users_controller.rb:17:in `create'
+  [1m[35m (0.8ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/users_controller.rb:17:in `create'
+[active_model_serializers] Rendered UserSerializer with ActiveModelSerializers::Adapter::Attributes (0.29ms)
+Completed 200 OK in 8ms (Views: 0.9ms | ActiveRecord: 1.9ms | Allocations: 2333)
+
+
+Started GET "/games" for ::1 at 2019-11-12 22:53:59 -0800
+Processing by GamesController#index as */*
+  [1m[36mGame Load (0.4ms)[0m  [1m[34mSELECT "games".* FROM "games"[0m
+  ↳ app/controllers/games_controller.rb:4:in `index'
+[active_model_serializers]   [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+[active_model_serializers]   ↳ app/controllers/games_controller.rb:4:in `index'
+[active_model_serializers]   [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+[active_model_serializers]   ↳ app/controllers/games_controller.rb:4:in `index'
+[active_model_serializers] Rendered ActiveModel::Serializer::CollectionSerializer with ActiveModelSerializers::Adapter::Attributes (5.09ms)
+Completed 200 OK in 8ms (Views: 6.6ms | ActiveRecord: 0.7ms | Allocations: 3803)
+
+
+Started GET "/games" for ::1 at 2019-11-12 22:54:00 -0800
+Processing by GamesController#index as HTML
+  [1m[36mGame Load (1.3ms)[0m  [1m[34mSELECT "games".* FROM "games"[0m
+  ↳ app/controllers/games_controller.rb:4:in `index'
+[active_model_serializers]   [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+[active_model_serializers]   ↳ app/controllers/games_controller.rb:4:in `index'
+[active_model_serializers]   [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+[active_model_serializers]   ↳ app/controllers/games_controller.rb:4:in `index'
+[active_model_serializers] Rendered ActiveModel::Serializer::CollectionSerializer with ActiveModelSerializers::Adapter::Attributes (8.49ms)
+Completed 200 OK in 14ms (Views: 11.7ms | ActiveRecord: 1.8ms | Allocations: 3801)
+
+
+Started POST "/games" for ::1 at 2019-11-12 22:54:08 -0800
+Processing by GamesController#create as JSON
+  Parameters: {"game_name"=>"Crane", "score"=>0, "user_id"=>1, "health"=>100, "turn"=>1, "status"=>true, "game"=>{"game_name"=>"Crane", "score"=>0, "health"=>100, "turn"=>1, "status"=>true, "user_id"=>1}}
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/games_controller.rb:18:in `create'
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/games_controller.rb:18:in `create'
+  [1m[36mGame Create (0.7ms)[0m  [1m[32mINSERT INTO "games" ("game_name", "score", "health", "turn", "status", "user_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING "id"[0m  [["game_name", "Crane"], ["score", 0], ["health", 100], ["turn", 1], ["status", true], ["user_id", 1], ["created_at", "2019-11-13 06:54:08.209645"], ["updated_at", "2019-11-13 06:54:08.209645"]]
+  ↳ app/controllers/games_controller.rb:18:in `create'
+  [1m[35m (0.6ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/games_controller.rb:18:in `create'
+[active_model_serializers] Rendered GameSerializer with ActiveModelSerializers::Adapter::Attributes (0.64ms)
+Completed 200 OK in 9ms (Views: 1.2ms | ActiveRecord: 1.7ms | Allocations: 3750)
+
+
+Started GET "/games" for ::1 at 2019-11-12 22:54:09 -0800
+Processing by GamesController#index as HTML
+  [1m[36mGame Load (0.7ms)[0m  [1m[34mSELECT "games".* FROM "games"[0m
+  ↳ app/controllers/games_controller.rb:4:in `index'
+[active_model_serializers]   [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+[active_model_serializers]   ↳ app/controllers/games_controller.rb:4:in `index'
+[active_model_serializers]   [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+[active_model_serializers]   ↳ app/controllers/games_controller.rb:4:in `index'
+[active_model_serializers]   [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+[active_model_serializers]   ↳ app/controllers/games_controller.rb:4:in `index'
+[active_model_serializers] Rendered ActiveModel::Serializer::CollectionSerializer with ActiveModelSerializers::Adapter::Attributes (9.72ms)
+Completed 200 OK in 15ms (Views: 13.2ms | ActiveRecord: 1.1ms | Allocations: 5186)
+
+
+Started POST "/users" for ::1 at 2019-11-12 22:54:36 -0800
+Processing by UsersController#create as */*
+  Parameters: {"username"=>"", "user"=>{"username"=>""}}
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/users_controller.rb:17:in `create'
+  [1m[36mUser Create (0.5ms)[0m  [1m[32mINSERT INTO "users" ("username", "created_at", "updated_at") VALUES ($1, $2, $3) RETURNING "id"[0m  [["username", ""], ["created_at", "2019-11-13 06:54:36.802195"], ["updated_at", "2019-11-13 06:54:36.802195"]]
+  ↳ app/controllers/users_controller.rb:17:in `create'
+  [1m[35m (1.0ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/users_controller.rb:17:in `create'
+[active_model_serializers] Rendered UserSerializer with ActiveModelSerializers::Adapter::Attributes (0.8ms)
+Completed 200 OK in 8ms (Views: 2.6ms | ActiveRecord: 1.6ms | Allocations: 2333)
+
+
+Started GET "/games" for ::1 at 2019-11-12 22:54:36 -0800
+Processing by GamesController#index as */*
+  [1m[36mGame Load (0.4ms)[0m  [1m[34mSELECT "games".* FROM "games"[0m
+  ↳ app/controllers/games_controller.rb:4:in `index'
+[active_model_serializers]   [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+[active_model_serializers]   ↳ app/controllers/games_controller.rb:4:in `index'
+[active_model_serializers]   [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+[active_model_serializers]   ↳ app/controllers/games_controller.rb:4:in `index'
+[active_model_serializers]   [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+[active_model_serializers]   ↳ app/controllers/games_controller.rb:4:in `index'
+[active_model_serializers] Rendered ActiveModel::Serializer::CollectionSerializer with ActiveModelSerializers::Adapter::Attributes (7.44ms)
+Completed 200 OK in 10ms (Views: 9.1ms | ActiveRecord: 0.8ms | Allocations: 5188)
+
+
+Started POST "/games" for ::1 at 2019-11-12 22:54:41 -0800
+Processing by GamesController#create as JSON
+  Parameters: {"game_name"=>"Lane", "score"=>0, "user_id"=>1, "health"=>100, "turn"=>1, "status"=>true, "game"=>{"game_name"=>"Lane", "score"=>0, "health"=>100, "turn"=>1, "status"=>true, "user_id"=>1}}
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/games_controller.rb:18:in `create'
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/games_controller.rb:18:in `create'
+  [1m[36mGame Create (0.8ms)[0m  [1m[32mINSERT INTO "games" ("game_name", "score", "health", "turn", "status", "user_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING "id"[0m  [["game_name", "Lane"], ["score", 0], ["health", 100], ["turn", 1], ["status", true], ["user_id", 1], ["created_at", "2019-11-13 06:54:41.677040"], ["updated_at", "2019-11-13 06:54:41.677040"]]
+  ↳ app/controllers/games_controller.rb:18:in `create'
+  [1m[35m (0.7ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/games_controller.rb:18:in `create'
+[active_model_serializers] Rendered GameSerializer with ActiveModelSerializers::Adapter::Attributes (0.57ms)
+Completed 200 OK in 11ms (Views: 1.1ms | ActiveRecord: 2.1ms | Allocations: 3750)
+
+
+Started GET "/games" for ::1 at 2019-11-12 22:54:43 -0800
+Processing by GamesController#index as HTML
+  [1m[36mGame Load (0.5ms)[0m  [1m[34mSELECT "games".* FROM "games"[0m
+  ↳ app/controllers/games_controller.rb:4:in `index'
+[active_model_serializers]   [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+[active_model_serializers]   ↳ app/controllers/games_controller.rb:4:in `index'
+[active_model_serializers]   [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+[active_model_serializers]   ↳ app/controllers/games_controller.rb:4:in `index'
+[active_model_serializers]   [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+[active_model_serializers]   ↳ app/controllers/games_controller.rb:4:in `index'
+[active_model_serializers]   [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+[active_model_serializers]   ↳ app/controllers/games_controller.rb:4:in `index'
+[active_model_serializers] Rendered ActiveModel::Serializer::CollectionSerializer with ActiveModelSerializers::Adapter::Attributes (15.4ms)
+Completed 200 OK in 19ms (Views: 17.8ms | ActiveRecord: 1.1ms | Allocations: 6572)
+
+
+Started DELETE "/games/6" for ::1 at 2019-11-12 22:54:45 -0800
+Processing by GamesController#destroy as */*
+  Parameters: {"id"=>"6"}
+  [1m[36mGame Load (0.5ms)[0m  [1m[34mSELECT "games".* FROM "games" WHERE "games"."id" = $1 LIMIT $2[0m  [["id", 6], ["LIMIT", 1]]
+  ↳ app/controllers/games_controller.rb:23:in `destroy'
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/games_controller.rb:24:in `destroy'
+  [1m[36mDisaster Load (0.5ms)[0m  [1m[34mSELECT "disasters".* FROM "disasters" WHERE "disasters"."game_id" = $1[0m  [["game_id", 6]]
+  ↳ app/controllers/games_controller.rb:24:in `destroy'
+  [1m[36mProtection Load (0.5ms)[0m  [1m[34mSELECT "protections".* FROM "protections" WHERE "protections"."game_id" = $1[0m  [["game_id", 6]]
+  ↳ app/controllers/games_controller.rb:24:in `destroy'
+  [1m[36mGame Destroy (1.1ms)[0m  [1m[31mDELETE FROM "games" WHERE "games"."id" = $1[0m  [["id", 6]]
+  ↳ app/controllers/games_controller.rb:24:in `destroy'
+  [1m[35m (0.6ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/games_controller.rb:24:in `destroy'
+Completed 204 No Content in 14ms (ActiveRecord: 3.3ms | Allocations: 3980)
+
+
+Started GET "/games" for ::1 at 2019-11-12 22:54:46 -0800
+Processing by GamesController#index as HTML
+  [1m[36mGame Load (3.6ms)[0m  [1m[34mSELECT "games".* FROM "games"[0m
+  ↳ app/controllers/games_controller.rb:4:in `index'
+[active_model_serializers]   [1m[36mUser Load (0.6ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+[active_model_serializers]   ↳ app/controllers/games_controller.rb:4:in `index'
+[active_model_serializers]   [1m[36mCACHE User Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+[active_model_serializers]   ↳ app/controllers/games_controller.rb:4:in `index'
+[active_model_serializers]   [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+[active_model_serializers]   ↳ app/controllers/games_controller.rb:4:in `index'
+[active_model_serializers] Rendered ActiveModel::Serializer::CollectionSerializer with ActiveModelSerializers::Adapter::Attributes (14.36ms)
+Completed 200 OK in 21ms (Views: 16.7ms | ActiveRecord: 4.4ms | Allocations: 5186)
+
+
+Started DELETE "/games/5" for ::1 at 2019-11-12 22:54:49 -0800
+Processing by GamesController#destroy as */*
+  Parameters: {"id"=>"5"}
+  [1m[36mGame Load (0.4ms)[0m  [1m[34mSELECT "games".* FROM "games" WHERE "games"."id" = $1 LIMIT $2[0m  [["id", 5], ["LIMIT", 1]]
+  ↳ app/controllers/games_controller.rb:23:in `destroy'
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/games_controller.rb:24:in `destroy'
+  [1m[36mDisaster Load (0.4ms)[0m  [1m[34mSELECT "disasters".* FROM "disasters" WHERE "disasters"."game_id" = $1[0m  [["game_id", 5]]
+  ↳ app/controllers/games_controller.rb:24:in `destroy'
+  [1m[36mProtection Load (0.5ms)[0m  [1m[34mSELECT "protections".* FROM "protections" WHERE "protections"."game_id" = $1[0m  [["game_id", 5]]
+  ↳ app/controllers/games_controller.rb:24:in `destroy'
+  [1m[36mGame Destroy (0.9ms)[0m  [1m[31mDELETE FROM "games" WHERE "games"."id" = $1[0m  [["id", 5]]
+  ↳ app/controllers/games_controller.rb:24:in `destroy'
+  [1m[35m (0.5ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/games_controller.rb:24:in `destroy'
+Completed 204 No Content in 11ms (ActiveRecord: 2.8ms | Allocations: 3980)
+
+
+Started POST "/users" for ::1 at 2019-11-12 22:54:51 -0800
+Processing by UsersController#create as */*
+  Parameters: {"username"=>"", "user"=>{"username"=>""}}
+  [1m[35m (1.1ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/users_controller.rb:17:in `create'
+  [1m[36mUser Create (0.7ms)[0m  [1m[32mINSERT INTO "users" ("username", "created_at", "updated_at") VALUES ($1, $2, $3) RETURNING "id"[0m  [["username", ""], ["created_at", "2019-11-13 06:54:51.125176"], ["updated_at", "2019-11-13 06:54:51.125176"]]
+  ↳ app/controllers/users_controller.rb:17:in `create'
+  [1m[35m (0.6ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/users_controller.rb:17:in `create'
+[active_model_serializers] Rendered UserSerializer with ActiveModelSerializers::Adapter::Attributes (13.03ms)
+Completed 200 OK in 19ms (Views: 13.5ms | ActiveRecord: 2.4ms | Allocations: 2336)
+
+
+Started GET "/games" for ::1 at 2019-11-12 22:54:51 -0800
+Processing by GamesController#index as */*
+  [1m[36mGame Load (0.6ms)[0m  [1m[34mSELECT "games".* FROM "games"[0m
+  ↳ app/controllers/games_controller.rb:4:in `index'
+[active_model_serializers]   [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+[active_model_serializers]   ↳ app/controllers/games_controller.rb:4:in `index'
+[active_model_serializers]   [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+[active_model_serializers]   ↳ app/controllers/games_controller.rb:4:in `index'
+[active_model_serializers] Rendered ActiveModel::Serializer::CollectionSerializer with ActiveModelSerializers::Adapter::Attributes (4.26ms)
+Completed 200 OK in 9ms (Views: 7.9ms | ActiveRecord: 1.0ms | Allocations: 3803)
+
+
+Started GET "/games" for ::1 at 2019-11-12 22:54:52 -0800
+Processing by GamesController#index as HTML
+  [1m[36mGame Load (0.5ms)[0m  [1m[34mSELECT "games".* FROM "games"[0m
+  ↳ app/controllers/games_controller.rb:4:in `index'
+[active_model_serializers]   [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+[active_model_serializers]   ↳ app/controllers/games_controller.rb:4:in `index'
+[active_model_serializers]   [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+[active_model_serializers]   ↳ app/controllers/games_controller.rb:4:in `index'
+[active_model_serializers] Rendered ActiveModel::Serializer::CollectionSerializer with ActiveModelSerializers::Adapter::Attributes (7.56ms)
+Completed 200 OK in 10ms (Views: 9.1ms | ActiveRecord: 0.9ms | Allocations: 3801)
+
+

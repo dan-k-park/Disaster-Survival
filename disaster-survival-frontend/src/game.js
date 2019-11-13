@@ -38,6 +38,7 @@ class Game {
       },
       body: JSON.stringify(this.game)
     })
+    this.render();
   }
 
   deleteGame = (e, game) => {
