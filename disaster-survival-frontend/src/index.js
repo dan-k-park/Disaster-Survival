@@ -84,7 +84,7 @@ const displayGames = (games) => {
     ev.preventDefault();
     let newGame = {
       game_name: gamename.value,
-      score: 0,
+      score: 200,
       user_id: 1,
       health: 100,
       turn: 1,
@@ -120,10 +120,26 @@ function ready() {
 }
 
 function purchaseClicked() {
+  let cost = document.getElementsByClassName('cart-total-price')[0].innerText.substr(1)
+  console.log(score)
+  /////200 is standing in for actually pulling the current game score but need a current game
+  let modifiedScore = 200 - cost
+  console.log(modifiedScore)
   let cartItems = document.getElementsByClassName('cart-items')[0]
   while (cartItems.hasChildNodes()) {
       cartItems.removeChild(cartItems.firstChild)
   }
+  ///// hardcoded the route because again there needs to be a current game
+  fetch(GAMES_URL + `/6`, {
+    method: 'PATCH',
+    headers: {
+      'Content-Type': 'application/json',
+      Accepts: 'application/json'
+    },
+    body: JSON.stringify({
+      score: modifiedScore
+    })
+  })
   updateCartTotal()
 }
 
