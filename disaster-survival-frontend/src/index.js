@@ -45,6 +45,7 @@ const getGames = (user) => {
   })
 }
 
+
 const editUsername = (user) => {
   let editUserForm = document.getElementById('update_username')
   editUserForm.classList.remove('hidden')
@@ -69,68 +70,28 @@ const editUsername = (user) => {
 }
 
 const displayGames = (games) => {
-
-  let gameList = document.getElementById('games')
-  gameList.classList.remove('hidden')
-  let ul = document.createElement('ul')
-
+  games.forEach(game => {
+    let loadedGame = new Game(game);
+    loadedGame.render();
+  })
 
   let gameForm = document.getElementById("new_game_form")
-  let game_input = document.getElementById("game_input")
-
-  games.forEach(game => {
-    let li = document.createElement('li')
-    li.textContent = game.game_name
-    ul.appendChild(li)
-
-    let deleteBtn = document.createElement('button');
-    deleteBtn.innerText = 'Delete Game';
-    li.appendChild(deleteBtn)
-    deleteBtn.onclick = e => {
-      deleteGame(e, game);
-    };
-  });
-
-  gameList.appendChild(ul)
+  let gamename = document.getElementById("gamename_input")
+  
 
   gameForm.addEventListener('submit', (ev) => {
-    ev.preventDefault()
-    
-    fetch(GAMES_URL, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        Accept: 'application/json',
-      },
-      body: JSON.stringify({
-        game_name: game_input.value,
-        score: 1,
-        user_id: 1,
-        health: 100,
-        turn: 1,
-        status: true
-      })
-    })
-    .then(res => res.json())
-    .then(game => {
-      let li = document.createElement('li');
-      li.textContent = game.game_name;
+    ev.preventDefault();
+    let newGame = {
+      game_name: gamename.value,
+      score: 0,
+      user_id: 1,
+      health: 100,
+      turn: 1,
+      status: true
+    }
 
-      let deleteBtn = document.createElement('button');
-      deleteBtn.innerText = 'Delete Game';
-      li.appendChild(deleteBtn)
-      deleteBtn.onclick = e => {
-        deleteGame(e, game);
-      }
-    
-      ul.appendChild(li)
-    })
+    let addedGame = new Game(newGame)
+    addedGame.addGame();
+    addedGame.render();
   })
-}
-
-const deleteGame = (e, game) => {
-  e.target.parentNode.remove();
-  fetch(GAMES_URL + `/${game.id}`, {
-    method: 'DELETE'
-  });
 }
