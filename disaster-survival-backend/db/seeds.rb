@@ -11,17 +11,6 @@ User.create([
   }
 ])
 
-Game.create([
-  {
-    game_name: 'Test',
-    score: 1,
-    health: 100,
-    turn: 1,
-    status: true,
-    user_id: 1
-  }
-])
-
 Disaster.create([
   {
     name: 'Hurricane',
