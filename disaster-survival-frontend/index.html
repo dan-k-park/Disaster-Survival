@@ -25,35 +25,69 @@
     </div>
     
     
-    <div id="games" class="hidden">
+    <div id="menu" class="hidden">
         <button type="button" id="edit_user">Change Username</button>
+        <button type="button" id="new_game">Start a New Game</button>
+        <button type="button" id="logout">Log Out</button>
 
         <form id="update_username" class="hidden">
             <input id="username_input" type="text" name="username" placeholder="Enter New Username"/>
             <input type="submit" value="Change Username"/>
         </form>
-
-        <form id="new_game_form">
-            <input id="gamename_input" type="text" name="comment" placeholder="Add Game Name"/>
-            <input type="submit" id="submit" value="Submit"/>
-        </form>
     </div>
 
-    <div id="score">
-      </div>
-  
-      <div id="game_name">
-        </div>
-  
-        <div id="health">
+    <div id="gameScreen">
+    </div>
+
+    <div class='hidden'>
+    <section class="container content-section">
+      <h2 class="section-header">Protections</h2>
+      <div class="shop-items">
+          <div class="shop-item">
+              <span class="shop-item-title">Plywood</span>
+              <div class="shop-item-details">
+                  <span class="shop-item-price">$10</span>
+                  <button class="btn btn-primary shop-item-button" type="button">ADD TO CART</button>
+              </div>
           </div>
-  
-          <div id="turn">
-            </div>
-
-    <div id="loadedgame" class="hidden">
-    </div>
-
-
+          <div class="shop-item">
+              <span class="shop-item-title">Sandbags</span>
+              <div class="shop-item-details">
+                  <span class="shop-item-price">$15</span>
+                  <button class="btn btn-primary shop-item-button"type="button">ADD TO CART</button>
+              </div>
+          </div>
+          <div class="shop-item">
+              <span class="shop-item-title">Steel Braces and Bolts</span>
+              <div class="shop-item-details">
+                  <span class="shop-item-price">$120</span>
+                  <button class="btn btn-primary shop-item-button" type="button">ADD TO CART</button>
+              </div>
+          </div>
+          <div class="shop-item">
+              <span class="shop-item-title">Concrete</span>
+              <div class="shop-item-details">
+                  <span class="shop-item-price">$1000</span>
+                  <button class="btn btn-primary shop-item-button" type="button">ADD TO CART</button>
+              </div>
+          </div>
+      </div>
+  </section>
+  <section class="container content-section">
+      <h2 class="section-header">CART</h2>
+      <div class="cart-row">
+          <span class="cart-item cart-header cart-column">ITEM</span>
+          <span class="cart-price cart-header cart-column">PRICE</span>
+          <span class="cart-quantity cart-header cart-column">QUANTITY</span>
+      </div>
+      <div class="cart-items">
+      </div>
+      <div class="cart-total">
+          <strong class="cart-total-title">Total</strong>
+          <span class="cart-total-price">$0</span>
+      </div>
+      <button class="btn btn-primary btn-purchase" type="button">PURCHASE</button>
+    </section>
+  </div>
   </body>
 </html>

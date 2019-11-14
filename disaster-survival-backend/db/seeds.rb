@@ -5,30 +5,20 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
-User.create([
-  {
-    username: 'Admin'
-  }
-])
-
 Disaster.create([
   {
     name: 'Hurricane',
-    damage: 30,
-    game_id: 1
+    damage: 30
   }, {
     name: 'Tsunami',
-    damage: 40,
-    game_id: 1
+    damage: 40
   }, {
-    name: 'Volcanoes',
-    damage: 20,
-    game_id: 1
+    name: 'Volcano',
+    damage: 20
   },
   {
-    name: 'Squatters',
-    damage: 2,
-    game_id: 1
+    name: 'Group of Squatters',
+    damage: 2
   }
 ])
 

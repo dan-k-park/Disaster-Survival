@@ -1,4 +1,4 @@
-class DisasterEvent {
+class Disaster {
   constructor(disaster) {
     this.id = disaster.id
     this.name = disaster.name
