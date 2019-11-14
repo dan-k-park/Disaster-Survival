@@ -172,13 +172,17 @@ const gamePlay = (game) => {
     protectionsList.append(li, purchaseBtn)
     
     purchaseBtn.addEventListener('click', () => {
-      game.protections.push(protectionArray[i]);
-      game.score -= protectionArray[i].price;
-      game.update();
+      if (game.score > protectionArray[i].price) {
+        game.protections.push(protectionArray[i]);
+        game.score -= protectionArray[i].price;
+        game.update();
 
-      score.textContent = `Money: $${game.score}`;
-      protectionStr += `${protectionArray[i].name} `
-      protections.textContent = `Protection: ${protectionStr}`;
+        score.textContent = `Money: $${game.score}`;
+        protectionStr += `${protectionArray[i].name} `
+        protections.textContent = `Protection: ${protectionStr}`;
+      } else {
+        alert('Insufficient funds, guess you\'re just gonna have to hope for the best')
+      }   
     })
   }
 
@@ -222,14 +226,16 @@ const gamePlay = (game) => {
 
 const checkProtections = (disaster, game) => {
   let disasterProtectionArray = disaster.protection.split(",").map(item => item.trim());
+  console.log(disasterProtectionArray)
   let damage = disaster.damage
 
-  for (let i = 0; i < game.protections; i++) {
+  for (let i = 0; i < game.protections.length; i++) {
+    console.log(game.protections[i].name)
     if (disasterProtectionArray.includes(game.protections[i].name)) {
-      damage -= game.protection[i].buff;
+      damage -= game.protections[i].buff;
     }
   }
-  return damage
+  return damage;
 }
 
 const getDisasters = () => {

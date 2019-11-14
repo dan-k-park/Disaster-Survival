@@ -17,38 +17,11 @@ Disaster.create([
   }, {
     name: 'Earthquake',
     damage: 40,
-    protection: 'Steel Braces, Concrete Foundation'
+    protection: 'Steel Braces & Bolts, Concrete Foundation'
   },
   {
     name: 'Group of Squatters',
     damage: 10,
     protection: 'None'
-  }
-])
-
-
-Protection.create([
-  {
-    name: 'Plywood',
-    price: 100,
-    buff: 10,
-  }, {
-    name: 'Hurricane Shutters',
-    price: 300,
-    buff: 20,
-  }, {
-    name: 'Sandbags',
-    price: 100,
-    buff: 5,
-  },
-  {
-    name: 'Steel Braces + Bolts',
-    price: 70,
-    buff: 10,
-  },
-  {
-    name: 'Concrete Foundation',
-    price: 500,
-    buff: 200000,
   }
 ])
