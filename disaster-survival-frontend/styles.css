@@ -1,11 +1,29 @@
-
 .hidden {
   display: none;
 }
 
 #signinScreen {
-  margin:auto;
+  width: 100px;
+	height: 100px;
+	
+	position: absolute;
+	top:0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+  	
+  margin: auto;
+  
   font-size:1.9vw
+}
+
+
+.topleft{
+  position:absolute;
+  margin:1%;
+  top:0;
+  left:0;
+  font-size: 2vw
 }
 
 .topright{
@@ -13,5 +31,21 @@
   margin:1%;
   top:0;
   right:0;
+  font-size:2vw
+}
+
+.bottomright{
+  position:absolute;
+  margin:1%;
+  bottom:0;
+  right:0;
+  font-size:2vw
+}
+
+.bottomleft{
+  position:absolute;
+  margin:1%;
+  bottom:0;
+  left:0;
   font-size:2vw
 }

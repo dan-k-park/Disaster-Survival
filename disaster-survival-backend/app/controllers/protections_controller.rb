@@ -21,6 +21,6 @@ class ProtectionsController < ApplicationController
     private
 
     def protection_params
-      params.require(:protection).permit(:name, :price, :buff, :game_id)
+      params.require(:protection).permit(:name, :price, :buff)
     end
 end

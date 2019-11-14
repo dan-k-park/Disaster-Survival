@@ -1,3 +1,3 @@
 class DisasterSerializer < ActiveModel::Serializer
-  attributes :id, :name, :damage
+  attributes :id, :name, :damage, :protection
 end

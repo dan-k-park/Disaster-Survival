@@ -8,48 +8,20 @@
 Disaster.create([
   {
     name: 'Hurricane',
-    damage: 30
+    damage: 50,
+    protection: 'Hurricane Shutters, Sandbags'
   }, {
     name: 'Tsunami',
-    damage: 40
+    damage: 40,
+    protection: 'Sandbags'
   }, {
-    name: 'Volcano',
-    damage: 20
+    name: 'Earthquake',
+    damage: 40,
+    protection: 'Steel Braces & Bolts, Concrete Foundation'
   },
   {
     name: 'Group of Squatters',
-    damage: 2
-  }
-])
-
-
-Protection.create([
-  {
-    name: 'Plywood',
-    price: 20,
-    buff:1,
-    game_id: 1
-  }, {
-    name: 'Hurricane Shutters',
-    price: 100,
-    buff:1000,
-    game_id: 1
-  }, {
-    name: 'Sandbags',
-    price: 20,
-    buff:1,
-    game_id: 1
-  },
-  {
-    name: 'Steel Braces + Bolts',
-    price: 1000,
-    buff:10000,
-    game_id: 1
-  },
-  {
-    name: 'Concrete Foundation',
-    price: 100000,
-    buff:200000,
-    game_id: 1
+    damage: 10,
+    protection: 'None'
   }
 ])

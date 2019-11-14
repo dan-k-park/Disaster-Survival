@@ -8,7 +8,7 @@ class Game {
     this.score = game.score
     this.status = game.status
 
-    this.resources = []
+    this.protections = []
   }
 
   update = () => {
@@ -29,9 +29,8 @@ class Game {
     });
   }
 
-  triggerDisasterEvent = () => {
-    let disaster = new DisasterEvent();
-    this.health -= disaster.damage;
+  triggerDisasterEvent = (damage) => {
+    this.health -= damage;
   }
 
   checkStatus = () => {
