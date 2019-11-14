@@ -25,3 +25,42 @@ Disaster.create([
     protection: 'None'
   }
 ])
+
+Hint.create([
+  {
+    content: 'Sea levels are starting to rise...',
+    disaster_id: 1
+  },
+  {
+    content: 'There\'s a roaring sound in the distance...',
+    disaster_id: 2
+  },
+  {
+    content: 'There\'s a roaring sound in the distance...',
+    disaster_id: 4
+  },
+  {
+    content: 'It\'s started to rain...',
+    disaster_id: 1
+  },
+  {
+    content: 'Waves have been getting bigger lately...',
+    disaster_id: 1
+  },
+  {
+    content: 'There have been reports of a large earthquake far away...',
+    disaster_id: 3
+  },
+  {
+    content: 'There have been reports of a large earthquake far away...',
+    disaster_id: 2
+  },
+  {
+    content: 'Animals have been disappearing lately...',
+    disaster_id: 4
+  },
+  {
+    content: 'Animals have been disappearing lately...',
+    disaster_id: 3
+  }
+])

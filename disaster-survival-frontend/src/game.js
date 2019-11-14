@@ -9,6 +9,7 @@ class Game {
     this.status = game.status
 
     this.protections = []
+    this.disasters = []
   }
 
   update = () => {
@@ -36,6 +37,7 @@ class Game {
   checkStatus = () => {
     if (this.health <= 0) {
       this.status = false;
+      this.update();
     }
   }
   

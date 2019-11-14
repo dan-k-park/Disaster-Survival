@@ -2,9 +2,10 @@ const BASE_URL = 'http://localhost:3000';
 const USERS_URL = `${BASE_URL}/users`;
 const GAMES_URL = `${BASE_URL}/games`;
 const DISASTERS_URL = `${BASE_URL}/disasters`;
-const PROTECTIONS_URL = `${BASE_URL}/protections`;
+const HINTS_URL = `${BASE_URL}/hints`;
 
 const DISASTERS = [];
+const HINTS = [];
 const PROTECTIONS = [{
   name: 'Hurricane Shutters',
   price: 300,
@@ -34,6 +35,8 @@ const NEWGAME = {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
+  getDisasters();
+  getHints();
   newUser();
 })
 
@@ -137,18 +140,19 @@ const gamePlay = (game) => {
   let health = document.createElement('p');
   let score = document.createElement('p');
   let turn = document.createElement('p');
-  let protections = document.createElement('p')
-  let gameover = document.createElement('h1')
+  let protections = document.createElement('p');
+  let hint = document.createElement('p')
+  let gameover = document.createElement('h1');
 
   name.textContent = game.name;
   health.textContent = `Health: ${game.health}`;
   score.textContent = `Money: $${game.score}`;
   turn.textContent = `Week: ${game.turn}`;
+  //hint.textContent = `Hint: ${findDisasterHint(game.disasters[game.disasters.length])}`;
 
   // Disasters
   let disasterName = document.createElement('p');
-  let disasterDamage = document.createElement('p')
-  getDisasters();
+  let disasterDamage = document.createElement('p');
 
   // Protections
   let protectionStr = ""
@@ -168,7 +172,7 @@ const gamePlay = (game) => {
     protectionsList.append(li, purchaseBtn)
     
     purchaseBtn.addEventListener('click', () => {
-      if (game.score > PROTECTIONS[i].price) {
+      if (game.score >= PROTECTIONS[i].price) {
         game.protections.push(PROTECTIONS[i]);
         game.score -= PROTECTIONS[i].price;
         game.update();
@@ -182,14 +186,12 @@ const gamePlay = (game) => {
     })
   }
 
-
   // Buttons
-  let nextTurnBtn = document.createElement('button')
-  nextTurnBtn.textContent = 'Continue to Next Week'
-  
+  let nextTurnBtn = document.createElement('button');
+  nextTurnBtn.textContent = 'Continue to Next Week';
 
   nextTurnBtn.addEventListener('click', () => {
-    let disaster = DISASTERS[Math.floor(Math.random() * 4)]
+    let disaster = game.disasters[game.disasters.length];
     disasterName.textContent = `You've been hit by a ${disaster.name}!`
 
     let damageTaken = checkProtections(disaster, game)
@@ -211,13 +213,15 @@ const gamePlay = (game) => {
       protectionStr = ''
 
       game.turn++;
+      
+      game.disasters.push(DISASTERS[Math.floor(Math.random() * 4)]);
       turn.textContent = `Week: ${game.turn}`;
+      hint.textContent = `Hint: ${findDisasterHint(disaster)}`;
 
       game.update();
     }
   })
-  
-  document.getElementById('gameScreen').append(name, health, score, protections, turn, disasterName, disasterDamage, gameover, nextTurnBtn, protectionsList)
+  document.getElementById('gameScreen').append(name, health, score, protections, turn, hint, disasterName, disasterDamage, gameover, nextTurnBtn, protectionsList)
 }
 
 const checkProtections = (disaster, game) => {
@@ -237,7 +241,30 @@ const getDisasters = () => {
   .then(res => res.json())
   .then(disasters => {
     for (let i = 0; i < disasters.length; i++) {
-      DISASTERS.push(disasters[i])
+      DISASTERS.push(disasters[i]);
     }
   })
+}
+
+const getHints = () => {
+  fetch(HINTS_URL)
+  .then(res => res.json())
+  .then(hints => {
+    for (let i = 0; i < hints.length; i++) {
+      HINTS.push(hints[i]);
+    }
+  })
+}
+
+const findDisasterHint = (disaster) => {
+  let disasterHints = [];
+  let disasterHintStr = '';
+
+  for (let i = 0; i < HINTS.length; i++) {
+    if (HINTS[i].disaster.name == disaster.name) {
+      disasterHints.push(HINTS[i].content)
+    }
+  }
+  disasterHintStr = disasterHints[Math.floor(Math.random() * disasterHints.length)];
+  return disasterHintStr;
 }
