@@ -5,6 +5,33 @@ const DISASTERS_URL = `${BASE_URL}/disasters`;
 const PROTECTIONS_URL = `${BASE_URL}/protections`;
 
 const DISASTERS = [];
+const PROTECTIONS = [{
+  name: 'Hurricane Shutters',
+  price: 300,
+  buff: 15,
+}, {
+  name: 'Sandbags',
+  price: 100,
+  buff: 10,
+},
+{
+  name: 'Steel Braces & Bolts',
+  price: 70,
+  buff: 10,
+},
+{
+  name: 'Concrete Foundation',
+  price: 500,
+  buff: 15,
+}];
+const NEWGAME = {
+  game_name: "Survive as Long as You Can!",
+  score: 2000,
+  user_id: 1,
+  health: 100,
+  turn: 1,
+  status: true
+}
 
 document.addEventListener('DOMContentLoaded', () => {
   newUser();
@@ -76,17 +103,7 @@ const mainMenu = () => {
   let logoutBtn = document.getElementById('logout')
 
   startBtn.addEventListener('click', () => {
-    let newGame = {
-      game_name: "New Game",
-      score: 2000,
-      user_id: 1,
-      health: 100,
-      turn: 1,
-      status: true
-    }
-
-    addGame(newGame)
-
+    addGame(NEWGAME)
     startBtn.classList.add('hidden')
   })
 
@@ -140,45 +157,24 @@ const gamePlay = (game) => {
     protections.textContent = 'Protections: None'
   }
 
-  let protectionArray = [
-    {
-      name: 'Hurricane Shutters',
-      price: 300,
-      buff: 15,
-    }, {
-      name: 'Sandbags',
-      price: 100,
-      buff: 10,
-    },
-    {
-      name: 'Steel Braces & Bolts',
-      price: 70,
-      buff: 10,
-    },
-    {
-      name: 'Concrete Foundation',
-      price: 500,
-      buff: 15,
-    }
-  ]
   let protectionsList = document.getElementById('protections')
 
-  for (let i = 0; i < protectionArray.length; i++) {
+  for (let i = 0; i < PROTECTIONS.length; i++) {
     let li = document.createElement('li')
     let purchaseBtn = document.createElement('button')
 
     purchaseBtn.textContent = 'Buy'
-    li.textContent = `${protectionArray[i].name} - $${protectionArray[i].price}`
+    li.textContent = `${PROTECTIONS[i].name} - $${PROTECTIONS[i].price}`
     protectionsList.append(li, purchaseBtn)
     
     purchaseBtn.addEventListener('click', () => {
-      if (game.score > protectionArray[i].price) {
-        game.protections.push(protectionArray[i]);
-        game.score -= protectionArray[i].price;
+      if (game.score > PROTECTIONS[i].price) {
+        game.protections.push(PROTECTIONS[i]);
+        game.score -= PROTECTIONS[i].price;
         game.update();
 
         score.textContent = `Money: $${game.score}`;
-        protectionStr += `${protectionArray[i].name} `
+        protectionStr += `${PROTECTIONS[i].name} `
         protections.textContent = `Protection: ${protectionStr}`;
       } else {
         alert('Insufficient funds, guess you\'re just gonna have to hope for the best')
@@ -226,11 +222,9 @@ const gamePlay = (game) => {
 
 const checkProtections = (disaster, game) => {
   let disasterProtectionArray = disaster.protection.split(",").map(item => item.trim());
-  console.log(disasterProtectionArray)
   let damage = disaster.damage
 
   for (let i = 0; i < game.protections.length; i++) {
-    console.log(game.protections[i].name)
     if (disasterProtectionArray.includes(game.protections[i].name)) {
       damage -= game.protections[i].buff;
     }

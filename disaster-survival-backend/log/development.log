@@ -18279,3 +18279,529 @@ Processing by GamesController#update as JSON
 Completed 200 OK in 44ms (Views: 4.2ms | ActiveRecord: 28.2ms | Allocations: 4463)
 
 
+Started POST "/users" for ::1 at 2019-11-14 01:16:44 -0800
+Processing by UsersController#create as */*
+  Parameters: {"username"=>"", "user"=>{"username"=>""}}
+  [1m[35m (0.4ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/users_controller.rb:17:in `create'
+  [1m[36mUser Create (0.5ms)[0m  [1m[32mINSERT INTO "users" ("username", "created_at", "updated_at") VALUES ($1, $2, $3) RETURNING "id"[0m  [["username", ""], ["created_at", "2019-11-14 09:16:44.578412"], ["updated_at", "2019-11-14 09:16:44.578412"]]
+  ↳ app/controllers/users_controller.rb:17:in `create'
+  [1m[35m (1.0ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/users_controller.rb:17:in `create'
+[active_model_serializers] Rendered UserSerializer with ActiveModelSerializers::Adapter::Attributes (0.26ms)
+Completed 200 OK in 8ms (Views: 0.8ms | ActiveRecord: 1.9ms | Allocations: 2333)
+
+
+Started POST "/games" for ::1 at 2019-11-14 01:16:45 -0800
+Processing by GamesController#create as JSON
+  Parameters: {"game_name"=>"Survive as Long as You Can!", "score"=>2000, "user_id"=>1, "health"=>100, "turn"=>1, "status"=>true, "game"=>{"game_name"=>"Survive as Long as You Can!", "score"=>2000, "health"=>100, "turn"=>1, "status"=>true, "user_id"=>1}}
+  [1m[35m (21.7ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/games_controller.rb:18:in `create'
+  [1m[36mUser Load (1.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/games_controller.rb:18:in `create'
+  [1m[36mGame Create (0.8ms)[0m  [1m[32mINSERT INTO "games" ("game_name", "score", "health", "turn", "status", "user_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING "id"[0m  [["game_name", "Survive as Long as You Can!"], ["score", 2000], ["health", 100], ["turn", 1], ["status", true], ["user_id", 1], ["created_at", "2019-11-14 09:16:45.267146"], ["updated_at", "2019-11-14 09:16:45.267146"]]
+  ↳ app/controllers/games_controller.rb:18:in `create'
+  [1m[35m (1.1ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/games_controller.rb:18:in `create'
+[active_model_serializers] Rendered GameSerializer with ActiveModelSerializers::Adapter::Attributes (0.59ms)
+Completed 200 OK in 33ms (Views: 1.1ms | ActiveRecord: 24.6ms | Allocations: 3740)
+
+
+Started GET "/disasters" for ::1 at 2019-11-14 01:16:45 -0800
+Processing by DisastersController#index as */*
+  [1m[36mDisaster Load (0.7ms)[0m  [1m[34mSELECT "disasters".* FROM "disasters"[0m
+  ↳ app/controllers/disasters_controller.rb:3:in `index'
+[active_model_serializers] Rendered ActiveModel::Serializer::CollectionSerializer with ActiveModelSerializers::Adapter::Attributes (1.03ms)
+Completed 200 OK in 5ms (Views: 4.0ms | ActiveRecord: 0.7ms | Allocations: 1469)
+
+
+Started POST "/users" for ::1 at 2019-11-14 01:23:58 -0800
+Processing by UsersController#create as */*
+  Parameters: {"username"=>"", "user"=>{"username"=>""}}
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/users_controller.rb:17:in `create'
+  [1m[36mUser Create (1.5ms)[0m  [1m[32mINSERT INTO "users" ("username", "created_at", "updated_at") VALUES ($1, $2, $3) RETURNING "id"[0m  [["username", ""], ["created_at", "2019-11-14 09:23:58.796051"], ["updated_at", "2019-11-14 09:23:58.796051"]]
+  ↳ app/controllers/users_controller.rb:17:in `create'
+  [1m[35m (14.1ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/users_controller.rb:17:in `create'
+[active_model_serializers] Rendered UserSerializer with ActiveModelSerializers::Adapter::Attributes (0.46ms)
+Completed 200 OK in 23ms (Views: 1.5ms | ActiveRecord: 15.8ms | Allocations: 2351)
+
+
+Started POST "/games" for ::1 at 2019-11-14 01:23:59 -0800
+Processing by GamesController#create as JSON
+  Parameters: {"game_name"=>"Survive as Long as You Can!", "score"=>2000, "user_id"=>1, "health"=>100, "turn"=>1, "status"=>true, "game"=>{"game_name"=>"Survive as Long as You Can!", "score"=>2000, "health"=>100, "turn"=>1, "status"=>true, "user_id"=>1}}
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/games_controller.rb:18:in `create'
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/games_controller.rb:18:in `create'
+  [1m[36mGame Create (1.3ms)[0m  [1m[32mINSERT INTO "games" ("game_name", "score", "health", "turn", "status", "user_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING "id"[0m  [["game_name", "Survive as Long as You Can!"], ["score", 2000], ["health", 100], ["turn", 1], ["status", true], ["user_id", 1], ["created_at", "2019-11-14 09:23:59.639220"], ["updated_at", "2019-11-14 09:23:59.639220"]]
+  ↳ app/controllers/games_controller.rb:18:in `create'
+  [1m[35m (0.9ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/games_controller.rb:18:in `create'
+[active_model_serializers] Rendered GameSerializer with ActiveModelSerializers::Adapter::Attributes (0.81ms)
+Completed 200 OK in 13ms (Views: 2.5ms | ActiveRecord: 3.3ms | Allocations: 3811)
+
+
+Started GET "/disasters" for ::1 at 2019-11-14 01:23:59 -0800
+Processing by DisastersController#index as */*
+  [1m[36mDisaster Load (0.8ms)[0m  [1m[34mSELECT "disasters".* FROM "disasters"[0m
+  ↳ app/controllers/disasters_controller.rb:3:in `index'
+[active_model_serializers] Rendered ActiveModel::Serializer::CollectionSerializer with ActiveModelSerializers::Adapter::Attributes (0.7ms)
+Completed 200 OK in 4ms (Views: 2.7ms | ActiveRecord: 0.8ms | Allocations: 1486)
+
+
+Started PUT "/games/3" for ::1 at 2019-11-14 01:24:00 -0800
+Processing by GamesController#update as JSON
+  Parameters: {"id"=>"3", "user"=>{"id"=>1, "username"=>"Dan"}, "name"=>"Survive as Long as You Can!", "turn"=>1, "health"=>100, "score"=>1700, "status"=>true, "protections"=>[{"name"=>"Hurricane Shutters", "price"=>300, "buff"=>15}], "game"=>{"id"=>"3", "score"=>1700, "health"=>100, "turn"=>1, "status"=>true}}
+  [1m[36mGame Load (0.6ms)[0m  [1m[34mSELECT "games".* FROM "games" WHERE "games"."id" = $1 LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  ↳ app/controllers/games_controller.rb:27:in `update'
+[31mUnpermitted parameter: :id[0m
+[31mUnpermitted parameter: :id[0m
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/games_controller.rb:30:in `update'
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/games_controller.rb:30:in `update'
+  [1m[36mGame Update (0.6ms)[0m  [1m[33mUPDATE "games" SET "score" = $1, "updated_at" = $2 WHERE "games"."id" = $3[0m  [["score", 1700], ["updated_at", "2019-11-14 09:24:00.632651"], ["id", 3]]
+  ↳ app/controllers/games_controller.rb:30:in `update'
+  [1m[35m (0.9ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/games_controller.rb:30:in `update'
+[active_model_serializers] Rendered GameSerializer with ActiveModelSerializers::Adapter::Attributes (0.7ms)
+Completed 200 OK in 15ms (Views: 1.3ms | ActiveRecord: 2.9ms | Allocations: 4476)
+
+
+Started PUT "/games/3" for ::1 at 2019-11-14 01:24:01 -0800
+Processing by GamesController#update as JSON
+  Parameters: {"id"=>"3", "user"=>{"id"=>1, "username"=>"Dan"}, "name"=>"Survive as Long as You Can!", "turn"=>1, "health"=>100, "score"=>1600, "status"=>true, "protections"=>[{"name"=>"Hurricane Shutters", "price"=>300, "buff"=>15}, {"name"=>"Sandbags", "price"=>100, "buff"=>10}], "game"=>{"id"=>"3", "score"=>1600, "health"=>100, "turn"=>1, "status"=>true}}
+  [1m[36mGame Load (0.4ms)[0m  [1m[34mSELECT "games".* FROM "games" WHERE "games"."id" = $1 LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  ↳ app/controllers/games_controller.rb:27:in `update'
+[31mUnpermitted parameter: :id[0m
+[31mUnpermitted parameter: :id[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/games_controller.rb:30:in `update'
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/games_controller.rb:30:in `update'
+  [1m[36mGame Update (0.5ms)[0m  [1m[33mUPDATE "games" SET "score" = $1, "updated_at" = $2 WHERE "games"."id" = $3[0m  [["score", 1600], ["updated_at", "2019-11-14 09:24:01.223301"], ["id", 3]]
+  ↳ app/controllers/games_controller.rb:30:in `update'
+  [1m[35m (1.0ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/games_controller.rb:30:in `update'
+[active_model_serializers] Rendered GameSerializer with ActiveModelSerializers::Adapter::Attributes (0.57ms)
+Completed 200 OK in 12ms (Views: 1.1ms | ActiveRecord: 2.6ms | Allocations: 4463)
+
+
+Started PUT "/games/3" for ::1 at 2019-11-14 01:24:01 -0800
+Processing by GamesController#update as JSON
+  Parameters: {"id"=>"3", "user"=>{"id"=>1, "username"=>"Dan"}, "name"=>"Survive as Long as You Can!", "turn"=>1, "health"=>100, "score"=>1530, "status"=>true, "protections"=>[{"name"=>"Hurricane Shutters", "price"=>300, "buff"=>15}, {"name"=>"Sandbags", "price"=>100, "buff"=>10}, {"name"=>"Steel Braces & Bolts", "price"=>70, "buff"=>10}], "game"=>{"id"=>"3", "score"=>1530, "health"=>100, "turn"=>1, "status"=>true}}
+  [1m[36mGame Load (0.7ms)[0m  [1m[34mSELECT "games".* FROM "games" WHERE "games"."id" = $1 LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  ↳ app/controllers/games_controller.rb:27:in `update'
+[31mUnpermitted parameter: :id[0m
+[31mUnpermitted parameter: :id[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/games_controller.rb:30:in `update'
+  [1m[36mUser Load (0.8ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/games_controller.rb:30:in `update'
+  [1m[36mGame Update (0.6ms)[0m  [1m[33mUPDATE "games" SET "score" = $1, "updated_at" = $2 WHERE "games"."id" = $3[0m  [["score", 1530], ["updated_at", "2019-11-14 09:24:01.647285"], ["id", 3]]
+  ↳ app/controllers/games_controller.rb:30:in `update'
+  [1m[35m (0.9ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/games_controller.rb:30:in `update'
+[active_model_serializers] Rendered GameSerializer with ActiveModelSerializers::Adapter::Attributes (0.92ms)
+Completed 200 OK in 27ms (Views: 14.7ms | ActiveRecord: 3.1ms | Allocations: 4472)
+
+
+Started PUT "/games/3" for ::1 at 2019-11-14 01:24:02 -0800
+Processing by GamesController#update as JSON
+  Parameters: {"id"=>"3", "user"=>{"id"=>1, "username"=>"Dan"}, "name"=>"Survive as Long as You Can!", "turn"=>1, "health"=>100, "score"=>1030, "status"=>true, "protections"=>[{"name"=>"Hurricane Shutters", "price"=>300, "buff"=>15}, {"name"=>"Sandbags", "price"=>100, "buff"=>10}, {"name"=>"Steel Braces & Bolts", "price"=>70, "buff"=>10}, {"name"=>"Concrete Foundation", "price"=>500, "buff"=>15}], "game"=>{"id"=>"3", "score"=>1030, "health"=>100, "turn"=>1, "status"=>true}}
+  [1m[36mGame Load (0.5ms)[0m  [1m[34mSELECT "games".* FROM "games" WHERE "games"."id" = $1 LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  ↳ app/controllers/games_controller.rb:27:in `update'
+[31mUnpermitted parameter: :id[0m
+[31mUnpermitted parameter: :id[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/games_controller.rb:30:in `update'
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/games_controller.rb:30:in `update'
+  [1m[36mGame Update (0.5ms)[0m  [1m[33mUPDATE "games" SET "score" = $1, "updated_at" = $2 WHERE "games"."id" = $3[0m  [["score", 1030], ["updated_at", "2019-11-14 09:24:02.949289"], ["id", 3]]
+  ↳ app/controllers/games_controller.rb:30:in `update'
+  [1m[35m (0.7ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/games_controller.rb:30:in `update'
+[active_model_serializers] Rendered GameSerializer with ActiveModelSerializers::Adapter::Attributes (0.53ms)
+Completed 200 OK in 11ms (Views: 1.0ms | ActiveRecord: 2.3ms | Allocations: 4475)
+
+
+Started PUT "/games/3" for ::1 at 2019-11-14 01:24:03 -0800
+Processing by GamesController#update as JSON
+  Parameters: {"id"=>"3", "user"=>{"id"=>1, "username"=>"Dan"}, "name"=>"Survive as Long as You Can!", "turn"=>2, "health"=>90, "score"=>1030, "status"=>true, "protections"=>[], "game"=>{"id"=>"3", "score"=>1030, "health"=>90, "turn"=>2, "status"=>true}}
+  [1m[36mGame Load (3.6ms)[0m  [1m[34mSELECT "games".* FROM "games" WHERE "games"."id" = $1 LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  ↳ app/controllers/games_controller.rb:27:in `update'
+[31mUnpermitted parameter: :id[0m
+[31mUnpermitted parameter: :id[0m
+  [1m[35m (2.7ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/games_controller.rb:30:in `update'
+  [1m[36mUser Load (1.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/games_controller.rb:30:in `update'
+  [1m[36mGame Update (0.7ms)[0m  [1m[33mUPDATE "games" SET "health" = $1, "turn" = $2, "updated_at" = $3 WHERE "games"."id" = $4[0m  [["health", 90], ["turn", 2], ["updated_at", "2019-11-14 09:24:03.737135"], ["id", 3]]
+  ↳ app/controllers/games_controller.rb:30:in `update'
+  [1m[35m (0.8ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/games_controller.rb:30:in `update'
+[active_model_serializers] Rendered GameSerializer with ActiveModelSerializers::Adapter::Attributes (1.07ms)
+Completed 200 OK in 21ms (Views: 1.9ms | ActiveRecord: 8.7ms | Allocations: 4465)
+
+
+Started PUT "/games/3" for ::1 at 2019-11-14 01:24:05 -0800
+Processing by GamesController#update as JSON
+  Parameters: {"id"=>"3", "user"=>{"id"=>1, "username"=>"Dan"}, "name"=>"Survive as Long as You Can!", "turn"=>2, "health"=>90, "score"=>730, "status"=>true, "protections"=>[{"name"=>"Hurricane Shutters", "price"=>300, "buff"=>15}], "game"=>{"id"=>"3", "score"=>730, "health"=>90, "turn"=>2, "status"=>true}}
+  [1m[36mGame Load (0.4ms)[0m  [1m[34mSELECT "games".* FROM "games" WHERE "games"."id" = $1 LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  ↳ app/controllers/games_controller.rb:27:in `update'
+[31mUnpermitted parameter: :id[0m
+[31mUnpermitted parameter: :id[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/games_controller.rb:30:in `update'
+  [1m[36mUser Load (0.9ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/games_controller.rb:30:in `update'
+  [1m[36mGame Update (0.6ms)[0m  [1m[33mUPDATE "games" SET "score" = $1, "updated_at" = $2 WHERE "games"."id" = $3[0m  [["score", 730], ["updated_at", "2019-11-14 09:24:05.447335"], ["id", 3]]
+  ↳ app/controllers/games_controller.rb:30:in `update'
+  [1m[35m (1.0ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/games_controller.rb:30:in `update'
+[active_model_serializers] Rendered GameSerializer with ActiveModelSerializers::Adapter::Attributes (0.93ms)
+Completed 200 OK in 13ms (Views: 1.5ms | ActiveRecord: 3.0ms | Allocations: 4457)
+
+
+Started PUT "/games/3" for ::1 at 2019-11-14 01:24:06 -0800
+Processing by GamesController#update as JSON
+  Parameters: {"id"=>"3", "user"=>{"id"=>1, "username"=>"Dan"}, "name"=>"Survive as Long as You Can!", "turn"=>2, "health"=>90, "score"=>630, "status"=>true, "protections"=>[{"name"=>"Hurricane Shutters", "price"=>300, "buff"=>15}, {"name"=>"Sandbags", "price"=>100, "buff"=>10}], "game"=>{"id"=>"3", "score"=>630, "health"=>90, "turn"=>2, "status"=>true}}
+  [1m[36mGame Load (0.3ms)[0m  [1m[34mSELECT "games".* FROM "games" WHERE "games"."id" = $1 LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  ↳ app/controllers/games_controller.rb:27:in `update'
+[31mUnpermitted parameter: :id[0m
+[31mUnpermitted parameter: :id[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/games_controller.rb:30:in `update'
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/games_controller.rb:30:in `update'
+  [1m[36mGame Update (13.6ms)[0m  [1m[33mUPDATE "games" SET "score" = $1, "updated_at" = $2 WHERE "games"."id" = $3[0m  [["score", 630], ["updated_at", "2019-11-14 09:24:06.199476"], ["id", 3]]
+  ↳ app/controllers/games_controller.rb:30:in `update'
+  [1m[35m (1.2ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/games_controller.rb:30:in `update'
+[active_model_serializers] Rendered GameSerializer with ActiveModelSerializers::Adapter::Attributes (0.91ms)
+Completed 200 OK in 28ms (Views: 1.7ms | ActiveRecord: 15.6ms | Allocations: 4463)
+
+
+Started PUT "/games/3" for ::1 at 2019-11-14 01:24:06 -0800
+Processing by GamesController#update as JSON
+  Parameters: {"id"=>"3", "user"=>{"id"=>1, "username"=>"Dan"}, "name"=>"Survive as Long as You Can!", "turn"=>2, "health"=>90, "score"=>560, "status"=>true, "protections"=>[{"name"=>"Hurricane Shutters", "price"=>300, "buff"=>15}, {"name"=>"Sandbags", "price"=>100, "buff"=>10}, {"name"=>"Steel Braces & Bolts", "price"=>70, "buff"=>10}], "game"=>{"id"=>"3", "score"=>560, "health"=>90, "turn"=>2, "status"=>true}}
+  [1m[36mGame Load (0.3ms)[0m  [1m[34mSELECT "games".* FROM "games" WHERE "games"."id" = $1 LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  ↳ app/controllers/games_controller.rb:27:in `update'
+[31mUnpermitted parameter: :id[0m
+[31mUnpermitted parameter: :id[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/games_controller.rb:30:in `update'
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/games_controller.rb:30:in `update'
+  [1m[36mGame Update (0.5ms)[0m  [1m[33mUPDATE "games" SET "score" = $1, "updated_at" = $2 WHERE "games"."id" = $3[0m  [["score", 560], ["updated_at", "2019-11-14 09:24:06.737782"], ["id", 3]]
+  ↳ app/controllers/games_controller.rb:30:in `update'
+  [1m[35m (1.0ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/games_controller.rb:30:in `update'
+[active_model_serializers] Rendered GameSerializer with ActiveModelSerializers::Adapter::Attributes (1.04ms)
+Completed 200 OK in 11ms (Views: 1.5ms | ActiveRecord: 2.5ms | Allocations: 4469)
+
+
+Started PUT "/games/3" for ::1 at 2019-11-14 01:24:07 -0800
+Processing by GamesController#update as JSON
+  Parameters: {"id"=>"3", "user"=>{"id"=>1, "username"=>"Dan"}, "name"=>"Survive as Long as You Can!", "turn"=>2, "health"=>90, "score"=>60, "status"=>true, "protections"=>[{"name"=>"Hurricane Shutters", "price"=>300, "buff"=>15}, {"name"=>"Sandbags", "price"=>100, "buff"=>10}, {"name"=>"Steel Braces & Bolts", "price"=>70, "buff"=>10}, {"name"=>"Concrete Foundation", "price"=>500, "buff"=>15}], "game"=>{"id"=>"3", "score"=>60, "health"=>90, "turn"=>2, "status"=>true}}
+  [1m[36mGame Load (0.3ms)[0m  [1m[34mSELECT "games".* FROM "games" WHERE "games"."id" = $1 LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  ↳ app/controllers/games_controller.rb:27:in `update'
+[31mUnpermitted parameter: :id[0m
+[31mUnpermitted parameter: :id[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/games_controller.rb:30:in `update'
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/games_controller.rb:30:in `update'
+  [1m[36mGame Update (0.5ms)[0m  [1m[33mUPDATE "games" SET "score" = $1, "updated_at" = $2 WHERE "games"."id" = $3[0m  [["score", 60], ["updated_at", "2019-11-14 09:24:07.679177"], ["id", 3]]
+  ↳ app/controllers/games_controller.rb:30:in `update'
+  [1m[35m (1.0ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/games_controller.rb:30:in `update'
+[active_model_serializers] Rendered GameSerializer with ActiveModelSerializers::Adapter::Attributes (0.59ms)
+Completed 200 OK in 11ms (Views: 1.1ms | ActiveRecord: 2.5ms | Allocations: 4475)
+
+
+Started PUT "/games/3" for ::1 at 2019-11-14 01:24:08 -0800
+Processing by GamesController#update as JSON
+  Parameters: {"id"=>"3", "user"=>{"id"=>1, "username"=>"Dan"}, "name"=>"Survive as Long as You Can!", "turn"=>3, "health"=>75, "score"=>60, "status"=>true, "protections"=>[], "game"=>{"id"=>"3", "score"=>60, "health"=>75, "turn"=>3, "status"=>true}}
+  [1m[36mGame Load (0.8ms)[0m  [1m[34mSELECT "games".* FROM "games" WHERE "games"."id" = $1 LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  ↳ app/controllers/games_controller.rb:27:in `update'
+[31mUnpermitted parameter: :id[0m
+[31mUnpermitted parameter: :id[0m
+  [1m[35m (1.2ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/games_controller.rb:30:in `update'
+  [1m[36mUser Load (1.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/games_controller.rb:30:in `update'
+  [1m[36mGame Update (0.6ms)[0m  [1m[33mUPDATE "games" SET "health" = $1, "turn" = $2, "updated_at" = $3 WHERE "games"."id" = $4[0m  [["health", 75], ["turn", 3], ["updated_at", "2019-11-14 09:24:08.486744"], ["id", 3]]
+  ↳ app/controllers/games_controller.rb:30:in `update'
+  [1m[35m (0.8ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/games_controller.rb:30:in `update'
+[active_model_serializers] Rendered GameSerializer with ActiveModelSerializers::Adapter::Attributes (0.88ms)
+Completed 200 OK in 17ms (Views: 1.8ms | ActiveRecord: 4.4ms | Allocations: 4465)
+
+
+Started POST "/users" for ::1 at 2019-11-14 01:26:00 -0800
+Processing by UsersController#create as */*
+  Parameters: {"username"=>"", "user"=>{"username"=>""}}
+  [1m[35m (0.4ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/users_controller.rb:17:in `create'
+  [1m[36mUser Create (0.6ms)[0m  [1m[32mINSERT INTO "users" ("username", "created_at", "updated_at") VALUES ($1, $2, $3) RETURNING "id"[0m  [["username", ""], ["created_at", "2019-11-14 09:26:00.824660"], ["updated_at", "2019-11-14 09:26:00.824660"]]
+  ↳ app/controllers/users_controller.rb:17:in `create'
+  [1m[35m (0.8ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/users_controller.rb:17:in `create'
+[active_model_serializers] Rendered UserSerializer with ActiveModelSerializers::Adapter::Attributes (0.27ms)
+Completed 200 OK in 8ms (Views: 0.8ms | ActiveRecord: 1.8ms | Allocations: 2333)
+
+
+Started POST "/games" for ::1 at 2019-11-14 01:26:01 -0800
+Processing by GamesController#create as JSON
+  Parameters: {"game_name"=>"Survive as Long as You Can!", "score"=>2000, "user_id"=>1, "health"=>100, "turn"=>1, "status"=>true, "game"=>{"game_name"=>"Survive as Long as You Can!", "score"=>2000, "health"=>100, "turn"=>1, "status"=>true, "user_id"=>1}}
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/games_controller.rb:18:in `create'
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/games_controller.rb:18:in `create'
+  [1m[36mGame Create (0.8ms)[0m  [1m[32mINSERT INTO "games" ("game_name", "score", "health", "turn", "status", "user_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING "id"[0m  [["game_name", "Survive as Long as You Can!"], ["score", 2000], ["health", 100], ["turn", 1], ["status", true], ["user_id", 1], ["created_at", "2019-11-14 09:26:01.512378"], ["updated_at", "2019-11-14 09:26:01.512378"]]
+  ↳ app/controllers/games_controller.rb:18:in `create'
+  [1m[35m (1.1ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/games_controller.rb:18:in `create'
+[active_model_serializers] Rendered GameSerializer with ActiveModelSerializers::Adapter::Attributes (0.57ms)
+Completed 200 OK in 12ms (Views: 1.1ms | ActiveRecord: 2.6ms | Allocations: 3740)
+
+
+Started GET "/disasters" for ::1 at 2019-11-14 01:26:01 -0800
+Processing by DisastersController#index as */*
+  [1m[36mDisaster Load (0.5ms)[0m  [1m[34mSELECT "disasters".* FROM "disasters"[0m
+  ↳ app/controllers/disasters_controller.rb:3:in `index'
+[active_model_serializers] Rendered ActiveModel::Serializer::CollectionSerializer with ActiveModelSerializers::Adapter::Attributes (1.54ms)
+Completed 200 OK in 5ms (Views: 4.3ms | ActiveRecord: 0.5ms | Allocations: 1469)
+
+
+Started PUT "/games/4" for ::1 at 2019-11-14 01:26:04 -0800
+Processing by GamesController#update as JSON
+  Parameters: {"id"=>"4", "user"=>{"id"=>1, "username"=>"Dan"}, "name"=>"Survive as Long as You Can!", "turn"=>1, "health"=>100, "score"=>1700, "status"=>true, "protections"=>[{"name"=>"Hurricane Shutters", "price"=>300, "buff"=>15}], "game"=>{"id"=>"4", "score"=>1700, "health"=>100, "turn"=>1, "status"=>true}}
+  [1m[36mGame Load (0.3ms)[0m  [1m[34mSELECT "games".* FROM "games" WHERE "games"."id" = $1 LIMIT $2[0m  [["id", 4], ["LIMIT", 1]]
+  ↳ app/controllers/games_controller.rb:27:in `update'
+[31mUnpermitted parameter: :id[0m
+[31mUnpermitted parameter: :id[0m
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/games_controller.rb:30:in `update'
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/games_controller.rb:30:in `update'
+  [1m[36mGame Update (0.5ms)[0m  [1m[33mUPDATE "games" SET "score" = $1, "updated_at" = $2 WHERE "games"."id" = $3[0m  [["score", 1700], ["updated_at", "2019-11-14 09:26:04.974176"], ["id", 4]]
+  ↳ app/controllers/games_controller.rb:30:in `update'
+  [1m[35m (0.9ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/games_controller.rb:30:in `update'
+[active_model_serializers] Rendered GameSerializer with ActiveModelSerializers::Adapter::Attributes (0.59ms)
+Completed 200 OK in 13ms (Views: 1.1ms | ActiveRecord: 2.3ms | Allocations: 4457)
+
+
+Started PUT "/games/4" for ::1 at 2019-11-14 01:26:05 -0800
+Processing by GamesController#update as JSON
+  Parameters: {"id"=>"4", "user"=>{"id"=>1, "username"=>"Dan"}, "name"=>"Survive as Long as You Can!", "turn"=>1, "health"=>100, "score"=>1600, "status"=>true, "protections"=>[{"name"=>"Hurricane Shutters", "price"=>300, "buff"=>15}, {"name"=>"Sandbags", "price"=>100, "buff"=>10}], "game"=>{"id"=>"4", "score"=>1600, "health"=>100, "turn"=>1, "status"=>true}}
+  [1m[36mGame Load (0.4ms)[0m  [1m[34mSELECT "games".* FROM "games" WHERE "games"."id" = $1 LIMIT $2[0m  [["id", 4], ["LIMIT", 1]]
+  ↳ app/controllers/games_controller.rb:27:in `update'
+[31mUnpermitted parameter: :id[0m
+[31mUnpermitted parameter: :id[0m
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/games_controller.rb:30:in `update'
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/games_controller.rb:30:in `update'
+  [1m[36mGame Update (0.5ms)[0m  [1m[33mUPDATE "games" SET "score" = $1, "updated_at" = $2 WHERE "games"."id" = $3[0m  [["score", 1600], ["updated_at", "2019-11-14 09:26:05.706687"], ["id", 4]]
+  ↳ app/controllers/games_controller.rb:30:in `update'
+  [1m[35m (1.0ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/games_controller.rb:30:in `update'
+[active_model_serializers] Rendered GameSerializer with ActiveModelSerializers::Adapter::Attributes (0.56ms)
+Completed 200 OK in 13ms (Views: 1.1ms | ActiveRecord: 2.6ms | Allocations: 4463)
+
+
+Started PUT "/games/4" for ::1 at 2019-11-14 01:26:06 -0800
+Processing by GamesController#update as JSON
+  Parameters: {"id"=>"4", "user"=>{"id"=>1, "username"=>"Dan"}, "name"=>"Survive as Long as You Can!", "turn"=>1, "health"=>100, "score"=>1530, "status"=>true, "protections"=>[{"name"=>"Hurricane Shutters", "price"=>300, "buff"=>15}, {"name"=>"Sandbags", "price"=>100, "buff"=>10}, {"name"=>"Steel Braces & Bolts", "price"=>70, "buff"=>10}], "game"=>{"id"=>"4", "score"=>1530, "health"=>100, "turn"=>1, "status"=>true}}
+  [1m[36mGame Load (0.3ms)[0m  [1m[34mSELECT "games".* FROM "games" WHERE "games"."id" = $1 LIMIT $2[0m  [["id", 4], ["LIMIT", 1]]
+  ↳ app/controllers/games_controller.rb:27:in `update'
+[31mUnpermitted parameter: :id[0m
+[31mUnpermitted parameter: :id[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/games_controller.rb:30:in `update'
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/games_controller.rb:30:in `update'
+  [1m[36mGame Update (0.5ms)[0m  [1m[33mUPDATE "games" SET "score" = $1, "updated_at" = $2 WHERE "games"."id" = $3[0m  [["score", 1530], ["updated_at", "2019-11-14 09:26:06.326759"], ["id", 4]]
+  ↳ app/controllers/games_controller.rb:30:in `update'
+  [1m[35m (1.0ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/games_controller.rb:30:in `update'
+[active_model_serializers] Rendered GameSerializer with ActiveModelSerializers::Adapter::Attributes (0.55ms)
+Completed 200 OK in 12ms (Views: 1.4ms | ActiveRecord: 2.4ms | Allocations: 4469)
+
+
+Started PUT "/games/4" for ::1 at 2019-11-14 01:26:07 -0800
+Processing by GamesController#update as JSON
+  Parameters: {"id"=>"4", "user"=>{"id"=>1, "username"=>"Dan"}, "name"=>"Survive as Long as You Can!", "turn"=>1, "health"=>100, "score"=>1030, "status"=>true, "protections"=>[{"name"=>"Hurricane Shutters", "price"=>300, "buff"=>15}, {"name"=>"Sandbags", "price"=>100, "buff"=>10}, {"name"=>"Steel Braces & Bolts", "price"=>70, "buff"=>10}, {"name"=>"Concrete Foundation", "price"=>500, "buff"=>15}], "game"=>{"id"=>"4", "score"=>1030, "health"=>100, "turn"=>1, "status"=>true}}
+  [1m[36mGame Load (0.5ms)[0m  [1m[34mSELECT "games".* FROM "games" WHERE "games"."id" = $1 LIMIT $2[0m  [["id", 4], ["LIMIT", 1]]
+  ↳ app/controllers/games_controller.rb:27:in `update'
+[31mUnpermitted parameter: :id[0m
+[31mUnpermitted parameter: :id[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/games_controller.rb:30:in `update'
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/games_controller.rb:30:in `update'
+  [1m[36mGame Update (0.7ms)[0m  [1m[33mUPDATE "games" SET "score" = $1, "updated_at" = $2 WHERE "games"."id" = $3[0m  [["score", 1030], ["updated_at", "2019-11-14 09:26:07.104092"], ["id", 4]]
+  ↳ app/controllers/games_controller.rb:30:in `update'
+  [1m[35m (0.9ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/games_controller.rb:30:in `update'
+[active_model_serializers] Rendered GameSerializer with ActiveModelSerializers::Adapter::Attributes (0.46ms)
+Completed 200 OK in 11ms (Views: 0.8ms | ActiveRecord: 2.7ms | Allocations: 4475)
+
+
+Started PUT "/games/4" for ::1 at 2019-11-14 01:26:07 -0800
+Processing by GamesController#update as JSON
+  Parameters: {"id"=>"4", "user"=>{"id"=>1, "username"=>"Dan"}, "name"=>"Survive as Long as You Can!", "turn"=>2, "health"=>70, "score"=>1030, "status"=>true, "protections"=>[], "game"=>{"id"=>"4", "score"=>1030, "health"=>70, "turn"=>2, "status"=>true}}
+  [1m[36mGame Load (0.7ms)[0m  [1m[34mSELECT "games".* FROM "games" WHERE "games"."id" = $1 LIMIT $2[0m  [["id", 4], ["LIMIT", 1]]
+  ↳ app/controllers/games_controller.rb:27:in `update'
+[31mUnpermitted parameter: :id[0m
+[31mUnpermitted parameter: :id[0m
+  [1m[35m (0.5ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/games_controller.rb:30:in `update'
+  [1m[36mUser Load (0.7ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/games_controller.rb:30:in `update'
+  [1m[36mGame Update (0.8ms)[0m  [1m[33mUPDATE "games" SET "health" = $1, "turn" = $2, "updated_at" = $3 WHERE "games"."id" = $4[0m  [["health", 70], ["turn", 2], ["updated_at", "2019-11-14 09:26:07.955438"], ["id", 4]]
+  ↳ app/controllers/games_controller.rb:30:in `update'
+  [1m[35m (1.0ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/games_controller.rb:30:in `update'
+[active_model_serializers] Rendered GameSerializer with ActiveModelSerializers::Adapter::Attributes (0.54ms)
+Completed 200 OK in 12ms (Views: 1.0ms | ActiveRecord: 3.6ms | Allocations: 4465)
+
+
+Started PUT "/games/4" for ::1 at 2019-11-14 01:26:09 -0800
+Processing by GamesController#update as JSON
+  Parameters: {"id"=>"4", "user"=>{"id"=>1, "username"=>"Dan"}, "name"=>"Survive as Long as You Can!", "turn"=>2, "health"=>70, "score"=>730, "status"=>true, "protections"=>[{"name"=>"Hurricane Shutters", "price"=>300, "buff"=>15}], "game"=>{"id"=>"4", "score"=>730, "health"=>70, "turn"=>2, "status"=>true}}
+  [1m[36mGame Load (0.3ms)[0m  [1m[34mSELECT "games".* FROM "games" WHERE "games"."id" = $1 LIMIT $2[0m  [["id", 4], ["LIMIT", 1]]
+  ↳ app/controllers/games_controller.rb:27:in `update'
+[31mUnpermitted parameter: :id[0m
+[31mUnpermitted parameter: :id[0m
+  [1m[35m (0.5ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/games_controller.rb:30:in `update'
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/games_controller.rb:30:in `update'
+  [1m[36mGame Update (0.5ms)[0m  [1m[33mUPDATE "games" SET "score" = $1, "updated_at" = $2 WHERE "games"."id" = $3[0m  [["score", 730], ["updated_at", "2019-11-14 09:26:09.624511"], ["id", 4]]
+  ↳ app/controllers/games_controller.rb:30:in `update'
+  [1m[35m (0.9ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/games_controller.rb:30:in `update'
+[active_model_serializers] Rendered GameSerializer with ActiveModelSerializers::Adapter::Attributes (0.58ms)
+Completed 200 OK in 24ms (Views: 1.2ms | ActiveRecord: 2.5ms | Allocations: 4460)
+
+
+Started PUT "/games/4" for ::1 at 2019-11-14 01:26:22 -0800
+Processing by GamesController#update as JSON
+  Parameters: {"id"=>"4", "user"=>{"id"=>1, "username"=>"Dan"}, "name"=>"Survive as Long as You Can!", "turn"=>2, "health"=>70, "score"=>630, "status"=>true, "protections"=>[{"name"=>"Hurricane Shutters", "price"=>300, "buff"=>15}, {"name"=>"Sandbags", "price"=>100, "buff"=>10}], "game"=>{"id"=>"4", "score"=>630, "health"=>70, "turn"=>2, "status"=>true}}
+  [1m[36mGame Load (13.3ms)[0m  [1m[34mSELECT "games".* FROM "games" WHERE "games"."id" = $1 LIMIT $2[0m  [["id", 4], ["LIMIT", 1]]
+  ↳ app/controllers/games_controller.rb:27:in `update'
+[31mUnpermitted parameter: :id[0m
+[31mUnpermitted parameter: :id[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/games_controller.rb:30:in `update'
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/games_controller.rb:30:in `update'
+  [1m[36mGame Update (0.5ms)[0m  [1m[33mUPDATE "games" SET "score" = $1, "updated_at" = $2 WHERE "games"."id" = $3[0m  [["score", 630], ["updated_at", "2019-11-14 09:26:22.653686"], ["id", 4]]
+  ↳ app/controllers/games_controller.rb:30:in `update'
+  [1m[35m (1.0ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/games_controller.rb:30:in `update'
+[active_model_serializers] Rendered GameSerializer with ActiveModelSerializers::Adapter::Attributes (0.55ms)
+Completed 200 OK in 26ms (Views: 1.1ms | ActiveRecord: 15.4ms | Allocations: 4463)
+
+
+Started PUT "/games/4" for ::1 at 2019-11-14 01:26:23 -0800
+Processing by GamesController#update as JSON
+  Parameters: {"id"=>"4", "user"=>{"id"=>1, "username"=>"Dan"}, "name"=>"Survive as Long as You Can!", "turn"=>2, "health"=>70, "score"=>560, "status"=>true, "protections"=>[{"name"=>"Hurricane Shutters", "price"=>300, "buff"=>15}, {"name"=>"Sandbags", "price"=>100, "buff"=>10}, {"name"=>"Steel Braces & Bolts", "price"=>70, "buff"=>10}], "game"=>{"id"=>"4", "score"=>560, "health"=>70, "turn"=>2, "status"=>true}}
+  [1m[36mGame Load (0.4ms)[0m  [1m[34mSELECT "games".* FROM "games" WHERE "games"."id" = $1 LIMIT $2[0m  [["id", 4], ["LIMIT", 1]]
+  ↳ app/controllers/games_controller.rb:27:in `update'
+[31mUnpermitted parameter: :id[0m
+[31mUnpermitted parameter: :id[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/games_controller.rb:30:in `update'
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/games_controller.rb:30:in `update'
+  [1m[36mGame Update (0.5ms)[0m  [1m[33mUPDATE "games" SET "score" = $1, "updated_at" = $2 WHERE "games"."id" = $3[0m  [["score", 560], ["updated_at", "2019-11-14 09:26:23.162089"], ["id", 4]]
+  ↳ app/controllers/games_controller.rb:30:in `update'
+  [1m[35m (1.0ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/games_controller.rb:30:in `update'
+[active_model_serializers] Rendered GameSerializer with ActiveModelSerializers::Adapter::Attributes (0.57ms)
+Completed 200 OK in 11ms (Views: 1.1ms | ActiveRecord: 2.5ms | Allocations: 4469)
+
+
+Started PUT "/games/4" for ::1 at 2019-11-14 01:26:23 -0800
+Processing by GamesController#update as JSON
+  Parameters: {"id"=>"4", "user"=>{"id"=>1, "username"=>"Dan"}, "name"=>"Survive as Long as You Can!", "turn"=>2, "health"=>70, "score"=>60, "status"=>true, "protections"=>[{"name"=>"Hurricane Shutters", "price"=>300, "buff"=>15}, {"name"=>"Sandbags", "price"=>100, "buff"=>10}, {"name"=>"Steel Braces & Bolts", "price"=>70, "buff"=>10}, {"name"=>"Concrete Foundation", "price"=>500, "buff"=>15}], "game"=>{"id"=>"4", "score"=>60, "health"=>70, "turn"=>2, "status"=>true}}
+  [1m[36mGame Load (0.3ms)[0m  [1m[34mSELECT "games".* FROM "games" WHERE "games"."id" = $1 LIMIT $2[0m  [["id", 4], ["LIMIT", 1]]
+  ↳ app/controllers/games_controller.rb:27:in `update'
+[31mUnpermitted parameter: :id[0m
+[31mUnpermitted parameter: :id[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/games_controller.rb:30:in `update'
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/games_controller.rb:30:in `update'
+  [1m[36mGame Update (0.5ms)[0m  [1m[33mUPDATE "games" SET "score" = $1, "updated_at" = $2 WHERE "games"."id" = $3[0m  [["score", 60], ["updated_at", "2019-11-14 09:26:23.867726"], ["id", 4]]
+  ↳ app/controllers/games_controller.rb:30:in `update'
+  [1m[35m (1.1ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/games_controller.rb:30:in `update'
+[active_model_serializers] Rendered GameSerializer with ActiveModelSerializers::Adapter::Attributes (1.65ms)
+Completed 200 OK in 13ms (Views: 2.3ms | ActiveRecord: 2.5ms | Allocations: 4475)
+
+
+Started PUT "/games/4" for ::1 at 2019-11-14 01:26:24 -0800
+Processing by GamesController#update as JSON
+  Parameters: {"id"=>"4", "user"=>{"id"=>1, "username"=>"Dan"}, "name"=>"Survive as Long as You Can!", "turn"=>3, "health"=>40, "score"=>60, "status"=>true, "protections"=>[], "game"=>{"id"=>"4", "score"=>60, "health"=>40, "turn"=>3, "status"=>true}}
+  [1m[36mGame Load (0.3ms)[0m  [1m[34mSELECT "games".* FROM "games" WHERE "games"."id" = $1 LIMIT $2[0m  [["id", 4], ["LIMIT", 1]]
+  ↳ app/controllers/games_controller.rb:27:in `update'
+[31mUnpermitted parameter: :id[0m
+[31mUnpermitted parameter: :id[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/games_controller.rb:30:in `update'
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/games_controller.rb:30:in `update'
+  [1m[36mGame Update (0.5ms)[0m  [1m[33mUPDATE "games" SET "health" = $1, "turn" = $2, "updated_at" = $3 WHERE "games"."id" = $4[0m  [["health", 40], ["turn", 3], ["updated_at", "2019-11-14 09:26:24.554644"], ["id", 4]]
+  ↳ app/controllers/games_controller.rb:30:in `update'
+  [1m[35m (0.9ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/games_controller.rb:30:in `update'
+[active_model_serializers] Rendered GameSerializer with ActiveModelSerializers::Adapter::Attributes (0.52ms)
+Completed 200 OK in 11ms (Views: 1.0ms | ActiveRecord: 2.2ms | Allocations: 4465)
+
+
+Started PUT "/games/4" for ::1 at 2019-11-14 01:26:27 -0800
+Processing by GamesController#update as JSON
+  Parameters: {"id"=>"4", "user"=>{"id"=>1, "username"=>"Dan"}, "name"=>"Survive as Long as You Can!", "turn"=>4, "health"=>30, "score"=>60, "status"=>true, "protections"=>[], "game"=>{"id"=>"4", "score"=>60, "health"=>30, "turn"=>4, "status"=>true}}
+  [1m[36mGame Load (0.4ms)[0m  [1m[34mSELECT "games".* FROM "games" WHERE "games"."id" = $1 LIMIT $2[0m  [["id", 4], ["LIMIT", 1]]
+  ↳ app/controllers/games_controller.rb:27:in `update'
+[31mUnpermitted parameter: :id[0m
+[31mUnpermitted parameter: :id[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/games_controller.rb:30:in `update'
+  [1m[36mUser Load (0.7ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/games_controller.rb:30:in `update'
+  [1m[36mGame Update (0.6ms)[0m  [1m[33mUPDATE "games" SET "health" = $1, "turn" = $2, "updated_at" = $3 WHERE "games"."id" = $4[0m  [["health", 30], ["turn", 4], ["updated_at", "2019-11-14 09:26:27.405972"], ["id", 4]]
+  ↳ app/controllers/games_controller.rb:30:in `update'
+  [1m[35m (1.0ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/games_controller.rb:30:in `update'
+[active_model_serializers] Rendered GameSerializer with ActiveModelSerializers::Adapter::Attributes (0.53ms)
+Completed 200 OK in 12ms (Views: 1.1ms | ActiveRecord: 2.8ms | Allocations: 4465)
+
+
+Started PUT "/games/4" for ::1 at 2019-11-14 01:26:28 -0800
+Processing by GamesController#update as JSON
+  Parameters: {"id"=>"4", "user"=>{"id"=>1, "username"=>"Dan"}, "name"=>"Survive as Long as You Can!", "turn"=>5, "health"=>20, "score"=>60, "status"=>true, "protections"=>[], "game"=>{"id"=>"4", "score"=>60, "health"=>20, "turn"=>5, "status"=>true}}
+  [1m[36mGame Load (0.3ms)[0m  [1m[34mSELECT "games".* FROM "games" WHERE "games"."id" = $1 LIMIT $2[0m  [["id", 4], ["LIMIT", 1]]
+  ↳ app/controllers/games_controller.rb:27:in `update'
+[31mUnpermitted parameter: :id[0m
+[31mUnpermitted parameter: :id[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/games_controller.rb:30:in `update'
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/games_controller.rb:30:in `update'
+  [1m[36mGame Update (0.5ms)[0m  [1m[33mUPDATE "games" SET "health" = $1, "turn" = $2, "updated_at" = $3 WHERE "games"."id" = $4[0m  [["health", 20], ["turn", 5], ["updated_at", "2019-11-14 09:26:28.423832"], ["id", 4]]
+  ↳ app/controllers/games_controller.rb:30:in `update'
+  [1m[35m (1.0ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/games_controller.rb:30:in `update'
+[active_model_serializers] Rendered GameSerializer with ActiveModelSerializers::Adapter::Attributes (0.82ms)
+Completed 200 OK in 13ms (Views: 2.0ms | ActiveRecord: 2.4ms | Allocations: 4465)
+
+
