@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_11_12_000921) do
+ActiveRecord::Schema.define(version: 2019_11_13_233128) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -18,10 +18,8 @@ ActiveRecord::Schema.define(version: 2019_11_12_000921) do
   create_table "disasters", force: :cascade do |t|
     t.string "name"
     t.integer "damage"
-    t.bigint "game_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["game_id"], name: "index_disasters_on_game_id"
   end
 
   create_table "games", force: :cascade do |t|
@@ -38,7 +36,6 @@ ActiveRecord::Schema.define(version: 2019_11_12_000921) do
 
   create_table "hints", force: :cascade do |t|
     t.string "content"
-    t.integer "probability"
     t.bigint "disaster_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -61,7 +58,6 @@ ActiveRecord::Schema.define(version: 2019_11_12_000921) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
-  add_foreign_key "disasters", "games"
   add_foreign_key "games", "users"
   add_foreign_key "hints", "disasters"
   add_foreign_key "protections", "games"
