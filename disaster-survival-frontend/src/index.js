@@ -46,68 +46,54 @@ const newUser = () => {
   signIn.addEventListener('submit', (ev) => {
     ev.preventDefault();
 
-    let newUsername = ev.target.username_input.value;
+    let username = ev.target.username_input.value;
+    let player = new User(username)
+    player.createUser();
+    mainMenu(player);
 
-    fetch(USERS_URL, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        Accepts: 'application/json'
-      },
-      body: JSON.stringify({
-        username: newUsername
-      })
-    })
-    .then(res => res.json())
-    .then(user => {
-      let newUser = new User(user)
-      return changeUsername(user);
-    })
-    mainMenu()
     signIn.classList.add('hidden')
   })
 }
 
-const changeUsername = (user) => {
-  let changeUsernameBtn = document.getElementById('edit_user')
 
-  changeUsernameBtn.addEventListener('click', () => {
-    editUsername(user);
-  })
-}
+const editUsername = (player) => {
 
-
-const editUsername = (user) => {
   let editUserForm = document.getElementById('update_username')
   editUserForm.classList.remove('hidden')
 
   editUserForm.addEventListener('submit', (ev) => {
     ev.preventDefault();
 
+    
     let newUsername = ev.target.username_input.value;
+    player.username = newUsername;
 
-    fetch(USERS_URL + `/${user.id}`, {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json',
-        Accepts: 'application/json'
-      },
-      body: JSON.stringify({
-        username: newUsername
-      })
+    fetch(USERS_URL)
+    .then(res => res.json())
+    .then(players => {
+      player.update(players[players.length - 1].id);
     })
+
     editUserForm.classList.add('hidden')
   })
 }
 
-const mainMenu = () => {
+const mainMenu = (player) => {
   document.getElementById('menu').classList.remove('hidden')
+
+  // Buttons
   let startBtn = document.getElementById('new_game')
   let logoutBtn = document.getElementById('logout')
+  let changeUsernameBtn = document.getElementById('edit_user')
+
+  changeUsernameBtn.addEventListener('click', () => {
+    editUsername(player);
+  })
 
   startBtn.addEventListener('click', () => {
     addGame(NEWGAME)
     startBtn.classList.add('hidden')
+    document.getElementById('instructions').classList.add('hidden')
   })
 
   logoutBtn.addEventListener('click', () => {
