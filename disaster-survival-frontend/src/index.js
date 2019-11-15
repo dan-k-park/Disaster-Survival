@@ -130,6 +130,7 @@ const addGame = (gameObj) => {
   .then(res => res.json())
   .then(game => {
     let startGame = new Game(game)
+    startGame.disasters.push(DISASTERS[Math.floor(Math.random() * 4)])
     gamePlay(startGame)
   })
 }
@@ -148,7 +149,7 @@ const gamePlay = (game) => {
   health.textContent = `Health: ${game.health}`;
   score.textContent = `Money: $${game.score}`;
   turn.textContent = `Week: ${game.turn}`;
-  //hint.textContent = `Hint: ${findDisasterHint(game.disasters[game.disasters.length])}`;
+  hint.textContent = `Hint: ${findDisasterHint(game.disasters[game.disasters.length - 1])}`;
 
   // Disasters
   let disasterName = document.createElement('p');
@@ -191,10 +192,9 @@ const gamePlay = (game) => {
   nextTurnBtn.textContent = 'Continue to Next Week';
 
   nextTurnBtn.addEventListener('click', () => {
-    let disaster = game.disasters[game.disasters.length];
-    disasterName.textContent = `You've been hit by a ${disaster.name}!`
+    disasterName.textContent = `You've been hit by a ${game.disasters[game.disasters.length - 1].name}!`
 
-    let damageTaken = checkProtections(disaster, game)
+    let damageTaken = checkProtections(game.disasters[game.disasters.length - 1], game)
 
     disasterDamage.textContent = `You took ${damageTaken} damage.`
     game.triggerDisasterEvent(damageTaken)
@@ -216,7 +216,7 @@ const gamePlay = (game) => {
       
       game.disasters.push(DISASTERS[Math.floor(Math.random() * 4)]);
       turn.textContent = `Week: ${game.turn}`;
-      hint.textContent = `Hint: ${findDisasterHint(disaster)}`;
+      hint.textContent = `Hint: ${findDisasterHint(game.disasters[game.disasters.length - 1])}`;
 
       game.update();
     }
