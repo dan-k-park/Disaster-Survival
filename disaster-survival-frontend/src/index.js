@@ -20,105 +20,10 @@ document.addEventListener('DOMContentLoaded', () => {
   newUser();
 
 
-var btn = document.createElement("button");
-btn.innerHTML = "click to change background image";
 var img_holder = document.createElement("div");
-document.body.appendChild(btn);
 document.body.appendChild(img_holder);
 /////////////////////////
-function imageSelector(){
 
-let sandbagArr = []
-let plywoodArr = []
-let concArr = []
-
-  for (let i = 0; i < PROTECTIONS.length; i++) {
-      if (PROTECTIONS[i].textContent == "Sandbags"){
-    sandbagArr.push(PROTECTIONS[i].textContent)
-  }
-  }
-
-  for (let i = 0; i < PROTECTIONS.length; i++) {
-    if (PROTECTIONS[i].textContent == "plywood"){
-  plywoodArr.push(PROTECTIONS[i].textContent)
-}
-}
-
-for (let i = 0; i < PROTECTIONS.length; i++) {
-  if (PROTECTIONS[i].textContent == "concrete"){
-concArr.push(PROTECTIONS[i].textContent)
-}
-}
-
-console.log(sandbagArr)
-console.log(plywoodArr)
-console.log(concArr)
-
-
-let count = 1
-
-if (sandbagsArr.length == 3 && plywoodArr.length == 2 && concArr.length == 1) {
-  count = 1;
-} else if (sandbagsArr.length == 2 && plywoodArr.length == 2 && concArr.length == 1) {
-  count = 2;
-} else if (sandbagsArr.length == 1 && plywoodArr.length == 2 && concArr.length == 1) {
-  count = 3;
-} else if (sandbagsArr.length == 2 && plywoodArr.length == 1 && concArr.length == 1) {
-  count = 4;
-} else if (sandbagsArr.length == 3 && plywoodArr.length == 2 && concArr.length == 1) {
-  count = 5;
-} else if (sandbagsArr.length == 3 && plywoodArr.length == 2 && concArr.length == 0) {
-  count = 6;
-} else if (sandbagsArr.length == 3 && plywoodArr.length == 1 && concArr.length == 0){
-  count = 7;
-} else if (sandbagsArr.length == 3 && plywoodArr.length == 0 && concArr.length == 0) {
-  count = 8;
-} else if (sandbagsArr.length == 2 && plywoodArr.length == 2 && concArr.length == 1) {
-  count = 9;/////////////no image yet
-} else if (sandbagsArr.length == 1 && plywoodArr.length == 2 && concArr.length == 1) {
-  count = 10;/////////////no image yet
-} else if (sandbagsArr.length == 0 && plywoodArr.length == 2 && concArr.length == 1) {
-  count = 11;
-} else if (sandbagsArr.length == 0 && plywoodArr.length == 0 && concArr.length == 1) {
-  count = 12;
-} else if (sandbagsArr.length == 3 && plywoodArr.length == 0 && concArr.length == 1) {
-  count = 13;/////////////no image yet
-} else if (sandbagsArr.length == 1 && plywoodArr.length == 1 && concArr.length == 0) {
-  count = 14;
-} else if (sandbagsArr.length == 3 && plywoodArr.length == 0 && concArr.length == 0) {
-  count = 15;/////////////no image yet
-} else if (sandbagsArr.length == 2 && plywoodArr.length == 0 && concArr.length == 0) {
-  count = 16;
-} else if (sandbagsArr.length == 1 && plywoodArr.length == 0 && concArr.length == 0) {
-  count = 17;
-} else if (sandbagsArr.length == 0 && plywoodArr.length == 2 && concArr.length == 0) {
-  count = 18;
-} else if (sandbagsArr.length == 0 && plywoodArr.length == 1 && concArr.length == 0) {
-  count = 19;
-} 
-else if (sandbagsArr.length == 2 && plywoodArr.length == 1 && concArr.length == 0) {
-  count = 21; ///////////no image yet
-} 
-else if (sandbagsArr.length == 3 && plywoodArr.length == 1 && concArr.length == 1) {
-  count = 22; ///////////no image yet
-} 
-else {
-  count = 20;
-}
-return count
-
-}
-////////////////////////////
-function changeBackground(count){
-  console.log(count)
-  var img = document.getElementById('beachHouse');
-  img.src = `images/Beach_House-${count}.jpg`;
-  img.addEventListener("load",function(){
-    img_holder.innerHTML = "";
-    img_holder.appendChild(img);
-  },false);
-}
-btn.addEventListener("click",changeBackground, false);
 })
 
 const newUser = () => {
@@ -288,11 +193,8 @@ const gamePlay = (game) => {
     }
   
     document.getElementsByClassName('btn-purchase')[0].addEventListener('click', purchaseClicked, changeBackground)
-  
-    var btn = document.createElement("button");
-  btn.innerHTML = "click to change background image";
+ 
   var img_holder = document.createElement("div");
-  document.body.appendChild(btn);
   document.body.appendChild(img_holder);
   
   let count = 1
@@ -305,12 +207,18 @@ const gamePlay = (game) => {
       img_holder.appendChild(img);
     },false);
   }
-  btn.addEventListener("click",changeBackground, false);
+  
   }
   function purchaseClicked() {
     let cost = document.getElementsByClassName('cart-total-price')[0].innerText.substr(1)
     /////200 is standing in for actually pulling the current game score but need a current game
     let modifiedScore = game.score - cost
+
+    if (modifiedScore < 0) {
+      return modifiedScore
+      alert('You dont have enough money for this purchase')
+    } else {
+
     console.log(modifiedScore)
     let cartItems = document.getElementsByClassName('cart-items')[0]
         //////////////////////////  
@@ -323,7 +231,8 @@ const gamePlay = (game) => {
           PROTECTIONS.splice(4,PROTECTIONS.length)
           PROTECTIONS.push(cartItemNames[i].innerText)
           console.log(PROTECTIONS)
-          let sandbagsArr = []
+
+let sandbagsArr = []
 let plywoodArr = []
 let concArr = []
 
@@ -348,6 +257,10 @@ concArr.push(PROTECTIONS[i])
 console.log(sandbagsArr)
 console.log(plywoodArr)
 console.log(concArr)
+
+let finalArr = [sandbagsArr, plywoodArr, concArr]
+console.log(finalArr)
+game.protections = finalArr
 
 ///////////////////////////////////////////////////////////////////
 let count = 1
@@ -398,7 +311,7 @@ else if (sandbagsArr.length == 3 && plywoodArr.length == 1 && concArr.length == 
   count = 22; ///////////no image yet
 } 
 else {
-  count = 20;
+  count = 1;
 }
 console.log(count)
 
@@ -417,6 +330,9 @@ console.log(count)
 
     game.update()
     updateCartTotal()
+
+
+  }
     }
   
   function removeCartItem(event) {
@@ -495,13 +411,16 @@ console.log(count)
     let disaster = DISASTERS[Math.floor(Math.random() * 4)]
     disasterName.textContent = `You've been hit by a ${disaster.name}!`
 
+    var imgDisaster = document.getElementById('beachHouse');
+    imgDisaster.src = `images/${disaster.name}.jpg`;
+
     let damageTaken = checkProtections(disaster, game)
 
     disasterDamage.textContent = `You took ${damageTaken} damage.`
     game.triggerDisasterEvent(damageTaken)
     game.checkStatus()
 
-    if (game.status == false) {
+    if (game.health <= 0) {
       health.textContent = `Health: 0`;;
       gameover.textContent = `Game Over. Your house survived ${game.turn} weeks.`
 
@@ -526,14 +445,59 @@ console.log(count)
 }
 
 const checkProtections = (disaster, game) => {
-  let disasterProtectionArray = disaster.protection.split(",").map(item => item.trim());
   let damage = disaster.damage
 
+
+  // for (let i = 0; i < game.protections.length; i++) {
+  //   if (game.protections[0].length != 0 && disaster.name == 'Hurricane') {
+  //     damage -= 10
+  //     game.protections[0] = []
+  //   } else if (game.protections[1].length != 0 && disaster.name == 'Hurricane') {
+  //     damage -= 10
+  //     game.protections[1] = []
+  //   } else if (game.protections[2].length != 0 && disaster.name == 'Hurricane') {
+  //     damage -= 5
+  //     game.protections[2] = []
+  //   }
+  // }
+
+
+  let newSandArr = []
+  let newPlyArr = []
+  let newConcArr = []
+
+
   for (let i = 0; i < game.protections.length; i++) {
-    if (disasterProtectionArray.includes(game.protections[i].name)) {
-      damage -= game.protections[i].buff;
-    }
+    if (game.protections[i] == "Sandbags"){
+  newSandArr.push(game.protections[i])
   }
+  }
+  
+    for (let i = 0; i < game.protections.length; i++) {
+      if (game.protections[i] == "Plywood"){
+    newPlyArr.push(game.protections[i])
+  }
+  }
+  
+  for (let i = 0; i < game.protections.length; i++) {
+    if (game.protections[i] == "Concrete"){
+  newConcArr.push(game.protections[i])
+  }
+  }
+
+  if (newSandArr.length > 0) {
+    damage -= 10
+  }  
+
+  if (newPlyArr.length > 0) {
+    damage -= 8
+  }  
+
+  if (newConcArr.length > 0) {
+    damage -= 20
+  } 
+
+  console.log(damage)
   return damage;
 }
 
