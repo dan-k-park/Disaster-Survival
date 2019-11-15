@@ -26,7 +26,7 @@ const PROTECTIONS = [{
   buff: 15,
 }];
 const NEWGAME = {
-  game_name: "Survive as Long as You Can!",
+  game_name: "Good luck ",
   score: 2000,
   user_id: 1,
   health: 100,
@@ -55,7 +55,6 @@ const newUser = () => {
   })
 }
 
-
 const editUsername = (player) => {
 
   let editUserForm = document.getElementById('update_username')
@@ -64,7 +63,6 @@ const editUsername = (player) => {
   editUserForm.addEventListener('submit', (ev) => {
     ev.preventDefault();
 
-    
     let newUsername = ev.target.username_input.value;
     player.username = newUsername;
 
@@ -75,6 +73,7 @@ const editUsername = (player) => {
     })
 
     editUserForm.classList.add('hidden')
+    document.getElementById('instructions').classList.remove('hidden')
   })
 }
 
@@ -88,10 +87,11 @@ const mainMenu = (player) => {
 
   changeUsernameBtn.addEventListener('click', () => {
     editUsername(player);
+    document.getElementById('instructions').classList.add('hidden')
   })
 
   startBtn.addEventListener('click', () => {
-    addGame(NEWGAME)
+    addGame(NEWGAME, player)
     startBtn.classList.add('hidden')
     document.getElementById('instructions').classList.add('hidden')
   })
@@ -100,11 +100,17 @@ const mainMenu = (player) => {
     document.getElementById('menu').classList.add('hidden')
     document.getElementById('gameScreen').classList.add('hidden')
     document.getElementById('signin').classList.remove('hidden')
+
+    fetch(USERS_URL)
+    .then(res => res.json())
+    .then(players => {
+      player.delete(players[players.length - 1].id)
+    })
     newUser();
   })
 }
 
-const addGame = (gameObj) => {
+const addGame = (gameObj, player) => {
   fetch(GAMES_URL, {
     method: 'POST',
     headers: {
@@ -117,11 +123,11 @@ const addGame = (gameObj) => {
   .then(game => {
     let startGame = new Game(game)
     startGame.disasters.push(DISASTERS[Math.floor(Math.random() * 4)])
-    gamePlay(startGame)
+    gamePlay(startGame, player)
   })
 }
 
-const gamePlay = (game) => {
+const gamePlay = (game, player) => {
   // Game log
   let name = document.createElement('h3');
   let health = document.createElement('p');
@@ -131,7 +137,7 @@ const gamePlay = (game) => {
   let hint = document.createElement('p')
   let gameover = document.createElement('h1');
 
-  name.textContent = game.name;
+  name.textContent = game.name + `${player.username}`;
   health.textContent = `Health: ${game.health}`;
   score.textContent = `Money: $${game.score}`;
   turn.textContent = `Week: ${game.turn}`;

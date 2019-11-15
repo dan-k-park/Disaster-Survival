@@ -26,4 +26,10 @@ class User {
       body: JSON.stringify(this)
     })
   }
+
+  delete = (id) => {
+    fetch(USERS_URL + `/${id}`, {
+      method: 'DELETE'
+    });
+  }
 }

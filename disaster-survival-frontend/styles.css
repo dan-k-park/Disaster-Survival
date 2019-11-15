@@ -17,6 +17,10 @@
   font-size:1.9vw
 }
 
+#instructions {
+  margin-top: 6%;
+}
+
 .center{
   width: 100px;
 	height: 100px;
