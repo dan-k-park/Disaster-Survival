@@ -27,8 +27,19 @@ class User {
     })
   }
 
+  beginDeletion = () => {
+    fetch(USERS_URL)
+    .then(res => res.json())
+    .then(users => {
+      users.forEach(user => {
+        console.log(user.id)
+        this.delete(user.id)
+      })
+    })
+  }
+
   delete = (id) => {
-    fetch(USERS_URL + `/${id}`, {
+    fetch(USERS_URL + '/' + id, {
       method: 'DELETE'
     });
   }

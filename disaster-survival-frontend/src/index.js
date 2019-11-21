@@ -38,6 +38,7 @@ document.addEventListener('DOMContentLoaded', () => {
   getDisasters();
   getHints();
   newUser();
+  
 })
 
 const newUser = () => {
@@ -49,9 +50,39 @@ const newUser = () => {
     let username = ev.target.username_input.value;
     let player = new User(username)
     player.createUser();
-    mainMenu(player);
 
     signIn.classList.add('hidden')
+    mainMenu(player);
+  })
+}
+
+const mainMenu = (player) => {
+  document.getElementById('menu').classList.remove('hidden')
+
+  // Buttons
+  let startBtn = document.getElementById('new_game')
+  let logoutBtn = document.getElementById('logout')
+  let changeUsernameBtn = document.getElementById('edit_user')
+
+  changeUsernameBtn.addEventListener('click', () => {
+    editUsername(player);
+    document.getElementById('instructions').classList.add('hidden')
+  })
+
+  startBtn.addEventListener('click', () => {
+    NEWGAME.game_name += player.username
+    addGame(NEWGAME, player)
+    startBtn.classList.add('hidden')
+    document.getElementById('instructions').classList.add('hidden')
+  })
+
+  logoutBtn.addEventListener('click', () => {
+    document.getElementById('menu').classList.add('hidden')
+    document.getElementById('gameScreen').classList.add('hidden')
+    document.getElementById('signin').classList.remove('hidden')
+
+    setTimeout(newUser(), 1000)
+    player.beginDeletion();
   })
 }
 
@@ -74,39 +105,6 @@ const editUsername = (player) => {
 
     editUserForm.classList.add('hidden')
     document.getElementById('instructions').classList.remove('hidden')
-  })
-}
-
-const mainMenu = (player) => {
-  document.getElementById('menu').classList.remove('hidden')
-
-  // Buttons
-  let startBtn = document.getElementById('new_game')
-  let logoutBtn = document.getElementById('logout')
-  let changeUsernameBtn = document.getElementById('edit_user')
-
-  changeUsernameBtn.addEventListener('click', () => {
-    editUsername(player);
-    document.getElementById('instructions').classList.add('hidden')
-  })
-
-  startBtn.addEventListener('click', () => {
-    addGame(NEWGAME, player)
-    startBtn.classList.add('hidden')
-    document.getElementById('instructions').classList.add('hidden')
-  })
-
-  logoutBtn.addEventListener('click', () => {
-    document.getElementById('menu').classList.add('hidden')
-    document.getElementById('gameScreen').classList.add('hidden')
-    document.getElementById('signin').classList.remove('hidden')
-
-    fetch(USERS_URL)
-    .then(res => res.json())
-    .then(players => {
-      player.delete(players[players.length - 1].id)
-    })
-    newUser();
   })
 }
 
@@ -137,7 +135,7 @@ const gamePlay = (game, player) => {
   let hint = document.createElement('p')
   let gameover = document.createElement('h1');
 
-  name.textContent = game.name + `${player.username}`;
+  name.textContent = game.name;
   health.textContent = `Health: ${game.health}`;
   score.textContent = `Money: $${game.score}`;
   turn.textContent = `Week: ${game.turn}`;
@@ -165,7 +163,9 @@ const gamePlay = (game, player) => {
     protectionsList.append(li, purchaseBtn)
     
     purchaseBtn.addEventListener('click', () => {
-      if (game.score >= PROTECTIONS[i].price) {
+      if (game.protections.includes(PROTECTIONS[i])) {
+        alert('Already purchased')
+      } else if (game.score >= PROTECTIONS[i].price) {
         game.protections.push(PROTECTIONS[i]);
         game.score -= PROTECTIONS[i].price;
         game.update();
